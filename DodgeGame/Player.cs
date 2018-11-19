@@ -14,7 +14,7 @@ namespace DodgeGame
     {
         private double _speed;
         //builds the player with default values
-        public Player(double x = 0, double y = 0, double radius = 13, double speed = 11.5)
+        public Player(double x = 0, double y = 0, double radius = 14, double speed = 11.5)
             : base(x, y, radius)
         {
             _speed = speed;
@@ -25,7 +25,7 @@ namespace DodgeGame
             playerAlive.ImageSource = bitmap;
             Circle.Fill = playerAlive;
             Circle.Stroke = new SolidColorBrush(Colors.Red);
-            Circle.StrokeThickness = 2;
+            Circle.StrokeThickness = 3;
         }
 
         //kills the player and ends the game

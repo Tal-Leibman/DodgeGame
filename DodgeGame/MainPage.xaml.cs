@@ -38,7 +38,7 @@ namespace DodgeGame
         int win = 0;
         int lose = 0;
         // enemy speed and amount default 
-        double enemySpeed = 5.5;
+        double enemySpeed = 6.5;
         int enemyCount = 10;
         string gameMode = "Normal";
 
@@ -242,14 +242,14 @@ namespace DodgeGame
         private void Hard_Checked(object sender, RoutedEventArgs e)
         {
             enemyCount = 13;
-            enemySpeed = 7;
+            enemySpeed = 7.3;
             gameMode = "Hard";
         }
 
         private void Hard_Unchecked(object sender, RoutedEventArgs e)
         {
             enemyCount = 10;
-            enemySpeed = 5.5;
+            enemySpeed = 6.5;
             gameMode = "Normal";
         }
 

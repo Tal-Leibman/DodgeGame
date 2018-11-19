@@ -36,7 +36,7 @@ namespace DodgeGame
         public Board(
             int enemyCount = 10,
             double enemySpeed = 6,
-            double boardSizeX = 800,
+            double boardSizeX = 1000,
             double boardSizeY = 600)
 
         {
