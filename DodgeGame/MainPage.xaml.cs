@@ -37,7 +37,7 @@ namespace DodgeGame
         // win lose log
         int win = 0;
         int lose = 0;
-        // enemy speed and amount default 
+        // enemy speed and amount default values
         double enemySpeed = 6.5;
         int enemyCount = 10;
         string gameMode = "Normal";
@@ -45,18 +45,17 @@ namespace DodgeGame
         public MainPage()
         {
             this.InitializeComponent();
-            // Keyboard event movement player
+            // Keyboard event movement player and shortcuts
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
             // timer for running the game
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             timer.Tick += Timer_Tick;
+            // Dialog Message
             Welcome();
-            
+
         }
-
-
 
         private void Timer_Tick(object sender, object e)
         {
@@ -69,6 +68,9 @@ namespace DodgeGame
             //sync ui with board
             UpdateCanvas();
         }
+
+
+        //Functions to sync the game with the ui START
 
         //add player and enemies Ellipse to canvas 
         private void AddToCanvas()
@@ -92,6 +94,13 @@ namespace DodgeGame
             }
         }
 
+        // statues bar in command bar to show game information 
+        private void StatuesBar(string gameState)
+        {
+            GameCounter.Text = "Games won: " + win + "\tGame State:\t" + gameState
+                 + "\nGames lost: " + lose + "\tDifficulty:\t" + gameMode;
+        }
+
         // Sync game state (win/lose) from board
         public void SyncGameState()
         {
@@ -112,6 +121,8 @@ namespace DodgeGame
                     break;
             }
         }
+
+        //Functions to sync the game with the ui END
 
         // keyboard event for moving the player update bool up,down,left,right true
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
@@ -163,7 +174,7 @@ namespace DodgeGame
             }
         }
 
-        //starts a new game with 
+        //starts a new game 
         private void StartNewGame()
         {
             if (timer.IsEnabled)
@@ -175,14 +186,14 @@ namespace DodgeGame
             left = false;
             right = false;
             canvasBoard.Children.Clear();
-            board = new Board(enemyCount,enemySpeed);
+            board = new Board(enemyCount, enemySpeed);
             canvasBoard.Height = board.BoardY;
             canvasBoard.Width = board.BoardX;
             AddToCanvas();
             timer.Start();
         }
 
-        // change the game state from pause to UnPause 
+        // change the game state from pause to resume and vice versa 
         private void PauseResume()
         {
             if (timer.IsEnabled)
@@ -199,12 +210,7 @@ namespace DodgeGame
             }
         }
 
-        // statues bar in command bar to show game information 
-        private void StatuesBar(string gameState)
-        {
-            GameCounter.Text = "Games won: " + win + "\tGame State:\t"+ gameState
-                 + "\nGames lost: " + lose + "\tDifficulty:\t"+gameMode  ;
-        }
+        // Menu Functions click events START
 
         private void NewGame_Click(object sender, RoutedEventArgs e)
         {
@@ -219,14 +225,6 @@ namespace DodgeGame
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
             PauseResume();
-        }
-
-
-        private void LoadGame()
-        {
-            board.Load();
-            canvasBoard.Children.Clear();
-            AddToCanvas();
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
@@ -255,11 +253,14 @@ namespace DodgeGame
 
         //loads a saved game state and stops timer
         private void Load_Click(object sender, RoutedEventArgs e)
-        {   if (timer.IsEnabled)
+        {
+            if (timer.IsEnabled)
             {
                 timer.Stop();
             }
-            LoadGame();
+            board.Load();
+            canvasBoard.Children.Clear();
+            AddToCanvas();
         }
 
         //saves a game state and stops timer
@@ -273,15 +274,18 @@ namespace DodgeGame
             board.Save();
         }
 
+        // Menu Functions click events END
+
+        // Message dialog show on startup and with help button
         private async void Welcome()
         {
             string msg =
                 "You control the space ship with the keyboard direction keys.\n" +
                 "The goal is to avoid all the UFO'S.\n" +
                 "Click Refresh or hit 'F2' to start a new game.\n" +
-                "Hit 'Ctrl' to pause/resume.\n"+
+                "Hit 'Control' to pause/resume.\n" +
                 "The save/load button stops the game, click resume to keep playing.\n" +
-                "When 'Hard mode' is pressed the next game will have faster UFO's and more of them.\n"+
+                "When 'Hard mode' is pressed the next game will have faster UFO's and more of them.\n" +
                 "Click Help button to see this message again";
             await new MessageDialog(msg, "Welcome to DodgeGame").ShowAsync();
         }
