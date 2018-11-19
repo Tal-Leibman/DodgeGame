@@ -21,9 +21,16 @@
                 <TextBlock Name="GameCounter" FontSize="15" FontWeight="Bold">
                 </TextBlock>
             </CommandBar.Content>
+                
             <AppBarButton Name="NewGame" Icon ="Refresh" Click = "NewGame_Click" Label="New Game" >
             </AppBarButton>
             <AppBarButton Name="Pause" Icon="Pause" Click="Pause_Click"></AppBarButton>
+            <AppBarToggleButton Name= "Hard" Label="Hard Mode" Checked="Hard_Checked" Unchecked="Hard_Unchecked"
+                                >
+                
+            </AppBarToggleButton>
+
+            
 
 
             <CommandBar.SecondaryCommands>

@@ -29,7 +29,6 @@ namespace DodgeGame
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
         // Declare board
         Board board;
         DispatcherTimer timer;
@@ -232,6 +231,16 @@ namespace DodgeGame
             }
 
             Welcome();
+        }
+
+        private void Hard_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Hard_Unchecked(object sender, RoutedEventArgs e)
+        {
+
         }
 
         //loads a saved game state and stops timer

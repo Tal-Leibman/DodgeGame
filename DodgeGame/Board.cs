@@ -34,6 +34,7 @@ namespace DodgeGame
          */
         public Board(
             int enemyCount = 10,
+            double enemySpeed = 6,
             double boardSizeX = 800,
             double boardSizeY = 600)
 
@@ -58,7 +59,7 @@ namespace DodgeGame
             // set first enemy, check if place is empty
             do
             {
-                Enemies[0] = new Enemy();
+                Enemies[0] = new Enemy(0,0,enemySpeed);
                 Enemies[0].X = RandomX(Enemies[0]);
                 Enemies[0].Y = RandomY(Enemies[0]);
                 placeEmpty = IsPlacement(Enemies[0], Player);
@@ -68,7 +69,7 @@ namespace DodgeGame
             int i = 1;
             do
             {
-                Enemies[i] = new Enemy();
+                Enemies[i] = new Enemy(0,0,enemySpeed);
                 Enemies[i].X = RandomX(Enemies[i]);
                 Enemies[i].Y = RandomY(Enemies[i]);
 
