@@ -38,7 +38,7 @@ namespace DodgeGame
         int win = 0;
         int lose = 0;
         // enemy speed and amount default 
-        double enemySpeed = 6;
+        double enemySpeed = 5.5;
         int enemyCount = 10;
         string gameMode = "Normal";
 
@@ -171,7 +171,7 @@ namespace DodgeGame
             left = false;
             right = false;
             canvasBoard.Children.Clear();
-            board = new Board();
+            board = new Board(enemyCount,enemySpeed);
             canvasBoard.Height = board.BoardY;
             canvasBoard.Width = board.BoardX;
             AddToCanvas();
@@ -241,12 +241,16 @@ namespace DodgeGame
 
         private void Hard_Checked(object sender, RoutedEventArgs e)
         {
-
+            enemyCount = 15;
+            enemySpeed = 7;
+            gameMode = "Hard";
         }
 
         private void Hard_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            enemyCount = 10;
+            enemySpeed = 5.5;
+            gameMode = "Normal";
         }
 
         //loads a saved game state and stops timer
