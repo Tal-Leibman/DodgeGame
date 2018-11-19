@@ -47,9 +47,9 @@ namespace DodgeGame
             {   
 
                 bool rangeLeft = X - _speed - Radius > 0;
-                bool rangeRight = X + _speed < board.BoardX - Radius;
+                bool rangeRight = X + _speed + Radius < board.BoardX;
                 bool rangeUp = Y - _speed - Radius > 0;
-                bool rangeDown = Y + _speed < board.BoardY - Radius;
+                bool rangeDown = Y + _speed + Radius < board.BoardY;
 
                 // 1 direction only
                 if ((left ^ right) ^ (up ^ down))
