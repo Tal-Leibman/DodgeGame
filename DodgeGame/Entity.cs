@@ -11,6 +11,8 @@ namespace DodgeGame
 {
     class Entity
     {
+        
+        //Parent class for Player(keyboard controlled) and Enemy(chase the player)
 
         public Entity(double x, double y, double radius)
         {
@@ -21,8 +23,8 @@ namespace DodgeGame
 
             Circle = new Ellipse
             {
-                Width = radius * 2,
-                Height = radius * 2,
+                Width = Radius * 2,
+                Height = Radius * 2,
             };
         }
 
@@ -30,11 +32,11 @@ namespace DodgeGame
 
         public double X { get; set; }
 
-        public double Y { get; set; }
+        public double Y { get; set;}
 
-        public bool IsAlive { get; set; }
+        public bool IsAlive { get; set;}
 
-        public double Radius { get; set; }
+        public double Radius { get; }
 
         public virtual void Dead() { }
 
