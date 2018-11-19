@@ -25,7 +25,7 @@ namespace DodgeGame
             ImageBrush enemy = new ImageBrush();
             enemy.ImageSource = bitmap;
             Circle.Fill = enemy;
-            Circle.Stroke = new SolidColorBrush(Colors.Red);
+            Circle.Stroke = new SolidColorBrush(Colors.Green);
             Circle.StrokeThickness = 2;
         }
 

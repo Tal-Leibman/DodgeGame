@@ -14,7 +14,7 @@ namespace DodgeGame
     {
         private double _speed;
         //builds the player with default values
-        public Player(double x = 0, double y = 0, double radius = 13, double speed = 13)
+        public Player(double x = 0, double y = 0, double radius = 13, double speed = 11.5)
             : base(x, y, radius)
         {
             _speed = speed;
@@ -24,7 +24,7 @@ namespace DodgeGame
             ImageBrush playerAlive = new ImageBrush();
             playerAlive.ImageSource = bitmap;
             Circle.Fill = playerAlive;
-            Circle.Stroke = new SolidColorBrush(Colors.Yellow);
+            Circle.Stroke = new SolidColorBrush(Colors.Red);
             Circle.StrokeThickness = 2;
         }
 
@@ -44,7 +44,8 @@ namespace DodgeGame
         public void Move(bool up, bool down, bool left, bool right, Board board)
         {
             if (IsAlive)
-            {
+            {   
+
                 bool rangeLeft = X - _speed - Radius > 0;
                 bool rangeRight = X + _speed < board.BoardX - Radius;
                 bool rangeUp = Y - _speed - Radius > 0;
