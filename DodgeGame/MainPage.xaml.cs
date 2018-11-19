@@ -132,6 +132,9 @@ namespace DodgeGame
                 case VirtualKey.Control:
                     PauseResume();
                     break;
+1                case VirtualKey.F2:
+                    StartNewGame();
+                    break;
                 default:
                     break;
             }
@@ -223,10 +226,6 @@ namespace DodgeGame
             board.Load();
             canvasBoard.Children.Clear();
             AddToCanvas();
-            if (!timer.IsEnabled)
-            {
-                PauseResume();
-            }
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
@@ -241,8 +240,8 @@ namespace DodgeGame
 
         private void Hard_Checked(object sender, RoutedEventArgs e)
         {
-            enemyCount = 15;
-            enemySpeed = 7;
+            enemyCount = 13;
+            enemySpeed = 6.8;
             gameMode = "Hard";
         }
 
@@ -255,7 +254,10 @@ namespace DodgeGame
 
         //loads a saved game state and stops timer
         private void Load_Click(object sender, RoutedEventArgs e)
-        {
+        {   if (timer.IsEnabled)
+            {
+                timer.Stop();
+            }
             LoadGame();
         }
 
@@ -275,10 +277,11 @@ namespace DodgeGame
             string msg =
                 "You control the space ship with the keyboard direction keys.\n" +
                 "The goal is to avoid all the UFO'S.\n" +
-                "Click Refresh to start a new game\n" +
-                "The save button stops the game, click resume to keep playing.\n" +
-                "Hit Ctrl to pause/resume" +
-                "Click Help button to see this message again\n";
+                "Click Refresh or hit 'F2' to start a new game.\n" +
+                "Hit 'Ctrl' to pause/resume.\n"+
+                "The save/load button stops the game, click resume to keep playing.\n" +
+                "When 'Hard mode' is pressed the new game will have faster UFO's and more of them.\n"+
+                "Click Help button to see this message again";
             await new MessageDialog(msg, "Welcome to DodgeGame").ShowAsync();
         }
 

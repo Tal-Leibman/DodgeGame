@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <CommandBar Grid.Row="0" VerticalAlignment="Stretch" OverflowButtonVisibility="Visible"
-                    DefaultLabelPosition="Right" AllowFocusOnInteraction="False" >
+                    DefaultLabelPosition="Right" AllowFocusOnInteraction="False" XYFocusKeyboardNavigation="Disabled" >
             <CommandBar.Content>
                 <TextBlock Name="GameCounter" FontSize="15" FontWeight="Bold">
                 </TextBlock>
