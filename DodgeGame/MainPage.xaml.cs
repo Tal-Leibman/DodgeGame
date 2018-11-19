@@ -53,6 +53,7 @@ namespace DodgeGame
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             timer.Tick += Timer_Tick;
             Welcome();
+            
         }
 
 

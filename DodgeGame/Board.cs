@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 namespace DodgeGame
 {
     class Board
-    {
+    {   
+        //counter for live enemies on board
         private int AliveEnemies { get; set; }
-
+        // board X dimension 
         public double BoardX { get; }
-
+        // board Y dimension 
         public double BoardY { get; }
-
+        // user controlled player on the board
         public Player Player { get; }
-
+        //an array of enemies 
         public Enemy[] Enemies { get; set; }
 
         Random _rnd = new Random();
-
+        // data members for the save function
         private int _saveEnemyCount;
         private Player _savePlayer;
         private Enemy[] _saveEnemies;
@@ -52,7 +53,7 @@ namespace DodgeGame
             _saveEnemies = new Enemy[enemyCount];
             for (int k = 0; k < _saveEnemies.Length; k++)
             {
-                _saveEnemies[k] = new Enemy();
+                _saveEnemies[k] = new Enemy(0,0,enemySpeed);
             }
 
             bool placeEmpty = false;
@@ -87,6 +88,24 @@ namespace DodgeGame
                 if (placeEmpty) { i++; }
 
             } while (i < enemyCount);
+
+        }
+
+        //Functions for Constructor START
+
+        //gets a random x location based on board size X and entity radius
+        private int RandomX(Entity entity)
+        {
+
+            return
+                _rnd.Next((int)entity.Radius, (int)(BoardX - entity.Radius));
+        }
+
+        //gets a random y location based on board size Y and entity radius
+        private int RandomY(Entity entity)
+        {
+            return
+                _rnd.Next((int)entity.Radius, (int)(BoardY - entity.Radius));
         }
 
         // check if the board is empty to spawn new enemy
@@ -96,6 +115,24 @@ namespace DodgeGame
             double deltaY = entity1.Y - entity2.Y;
             double distance = Math.Sqrt(Math.Pow(deltaX, 2) + Math.Pow(deltaY, 2));
             return distance > (entity1.Radius + entity2.Radius) * 3.5;
+        }
+
+        //Functions for Constructor END
+
+        //Functions for movement and collisions START
+
+        // moves all the enemies on the board and checks collisions 
+        public void MoveEnemies()
+        {
+            for (int i = 0; i < Enemies.Length && Player.IsAlive; i++)
+            {
+                // move Enemies
+                Enemies[i].Move(Player.X, Player.Y);
+                // Check player alive
+                PlayerVsEnemy();
+                //check collisions
+                EnemyVsEnemy();
+            }
         }
 
         // check for collision entity1 always dies
@@ -116,6 +153,32 @@ namespace DodgeGame
                 }
             }
         }
+
+        //check collisions between enemies 
+        private void EnemyVsEnemy()
+        {
+            for (int i = 0; i < Enemies.Length; i++)
+            {
+                for (int j = 0; j < Enemies.Length; j++)
+                {
+                    if (i != j)
+                    {
+                        IsCollison(Enemies[i], Enemies[j]);
+                    }
+                }
+            }
+        }
+
+        //check collision between player and enemies
+        private void PlayerVsEnemy()
+        {
+            foreach (Enemy enemy in Enemies)
+            {
+                IsCollison(Player, enemy);
+            }
+        }
+
+        //Functions for movement and collisions END
 
         //Kill all enemies when game is won
         private void KillAllEnemies()
@@ -145,59 +208,6 @@ namespace DodgeGame
             {
                 return "GameOn";
             }
-        }
-
-        //check collisions between enemies 
-        private void EnemyVsEnemy()
-        {
-            for (int i = 0; i < Enemies.Length; i++)
-            {
-                for (int j = 0; j < Enemies.Length; j++)
-                {
-                    if (i != j)
-                    {
-                        IsCollison(Enemies[i], Enemies[j]);
-                    }
-                }
-            }
-        }
-
-        //check collision between player and enemies
-        private void PlayerVsEnemy()
-        {
-            foreach (Enemy enemy in Enemies)
-            {
-                IsCollison(Player, enemy);
-            }
-        }
-
-        // moves all the enemies on the board and checks collisions 
-        public void MoveEnemies()
-        {
-            for (int i = 0; i < Enemies.Length && Player.IsAlive; i++)
-            {
-                // move Enemies
-                Enemies[i].Move(Player.X, Player.Y);
-                // Check player alive
-                PlayerVsEnemy();
-                //check collisions
-                EnemyVsEnemy();
-            }
-        }
-
-        //gets a random x location based on board size X and entity radius
-        private int RandomX(Entity entity)
-        {
-
-            return
-                _rnd.Next((int)entity.Radius, (int)(BoardX - entity.Radius));
-        }
-
-        //gets a random y location based on board size Y and entity radius
-        private int RandomY(Entity entity)
-        {
-            return
-                _rnd.Next((int)entity.Radius, (int)(BoardY - entity.Radius));
         }
 
         //save game state
