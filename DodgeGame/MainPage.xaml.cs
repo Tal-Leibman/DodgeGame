@@ -37,6 +37,10 @@ namespace DodgeGame
         // win lose log
         int win = 0;
         int lose = 0;
+        // enemy speed and amount default 
+        double enemySpeed = 6;
+        int enemyCount = 10;
+        string gameMode = "Normal";
 
         public MainPage()
         {
@@ -155,6 +159,7 @@ namespace DodgeGame
             }
         }
 
+        //starts a new game with 
         private void StartNewGame()
         {
             if (timer.IsEnabled)
@@ -190,10 +195,11 @@ namespace DodgeGame
             }
         }
 
+        // statues bar in command bar to show game information 
         private void StatuesBar(string gameState)
         {
-            GameCounter.Text = "Games won: " + win + "\tGame State:"
-                 + "\nGames lost: " + lose + "\t" + gameState;
+            GameCounter.Text = "Games won: " + win + "\tGame State:\t"+ gameState
+                 + "\nGames lost: " + lose + "\tDifficulty:\t"+gameMode  ;
         }
 
         private void NewGame_Click(object sender, RoutedEventArgs e)
