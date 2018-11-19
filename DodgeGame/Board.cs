@@ -95,7 +95,7 @@ namespace DodgeGame
             double deltaX = entity1.X - entity2.X;
             double deltaY = entity1.Y - entity2.Y;
             double distance = Math.Sqrt(Math.Pow(deltaX, 2) + Math.Pow(deltaY, 2));
-            return distance > (entity1.Radius + entity2.Radius) * 3;
+            return distance > (entity1.Radius + entity2.Radius) * 3.5;
         }
 
         // check for collision entity1 always dies

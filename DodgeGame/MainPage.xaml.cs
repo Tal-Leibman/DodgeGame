@@ -132,7 +132,7 @@ namespace DodgeGame
                 case VirtualKey.Control:
                     PauseResume();
                     break;
-1                case VirtualKey.F2:
+                case VirtualKey.F2:
                     StartNewGame();
                     break;
                 default:
@@ -241,7 +241,7 @@ namespace DodgeGame
         private void Hard_Checked(object sender, RoutedEventArgs e)
         {
             enemyCount = 13;
-            enemySpeed = 6.8;
+            enemySpeed = 7;
             gameMode = "Hard";
         }
 
@@ -280,7 +280,7 @@ namespace DodgeGame
                 "Click Refresh or hit 'F2' to start a new game.\n" +
                 "Hit 'Ctrl' to pause/resume.\n"+
                 "The save/load button stops the game, click resume to keep playing.\n" +
-                "When 'Hard mode' is pressed the new game will have faster UFO's and more of them.\n"+
+                "When 'Hard mode' is pressed the next game will have faster UFO's and more of them.\n"+
                 "Click Help button to see this message again";
             await new MessageDialog(msg, "Welcome to DodgeGame").ShowAsync();
         }
