@@ -6,17 +6,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Height="650" Width="800" XYFocusKeyboardNavigation="Disabled"
+       
+    
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Name="MainGrid" >
+    <Grid Name="MainGrid"  >
 
         <Grid.RowDefinitions >
             <RowDefinition Height="55" />
             <RowDefinition Height="600"/>
         </Grid.RowDefinitions>
+        
+        <Canvas  Name="canvasBoard" Grid.Row="1" >
+            <Canvas.Background>
+                <ImageBrush ImageSource="ms-appx:///Assets/Hubble.jpg"></ImageBrush>
+            </Canvas.Background>
+        </Canvas>
 
-        <CommandBar Grid.Row="0" VerticalAlignment="Stretch" OverflowButtonVisibility="Visible"
-                    DefaultLabelPosition="Right" AllowFocusOnInteraction="False" XYFocusKeyboardNavigation="Disabled" >
+        <CommandBar Name="CommandBar" Grid.Row="0" VerticalAlignment="Stretch" OverflowButtonVisibility="Visible"
+                    DefaultLabelPosition="Right" AllowFocusOnInteraction="False" XYFocusKeyboardNavigation="Disabled">
             <CommandBar.Content>
                 <TextBlock Name="GameCounter" FontSize="15" FontWeight="Bold">
                 </TextBlock>
@@ -42,11 +50,7 @@
         </CommandBar>
         
 
-        <Canvas  Name="canvasBoard" Grid.Row="1" >
-            <Canvas.Background>
-                <ImageBrush ImageSource="ms-appx:///Assets/Hubble.jpg"></ImageBrush>
-            </Canvas.Background>
-        </Canvas>
+
 
     </Grid>
 </Page>
