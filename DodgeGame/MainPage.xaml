@@ -6,12 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Height="650" Width="1000" XYFocusKeyboardNavigation="Disabled"
-       
-    
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Name="MainGrid"  >
-
+    <Grid Name="MainGrid">
         <Grid.RowDefinitions >
             <RowDefinition Height="55" />
             <RowDefinition Height="600"/>
@@ -25,21 +22,17 @@
 
         <CommandBar Name="CommandBar" Grid.Row="0" VerticalAlignment="Stretch" OverflowButtonVisibility="Visible"
                     DefaultLabelPosition="Right" AllowFocusOnInteraction="False" XYFocusKeyboardNavigation="Disabled">
+            
             <CommandBar.Content>
                 <TextBlock Name="GameCounter" FontSize="15" FontWeight="Bold">
                 </TextBlock>
             </CommandBar.Content>
+            
                 
             <AppBarButton Name="NewGame" Icon ="Refresh" Click = "NewGame_Click" Label="New Game" >
             </AppBarButton>
             <AppBarButton Name="Pause" Icon="Pause" Click="Pause_Click"></AppBarButton>
-            <AppBarToggleButton Name= "Hard" Label="Hard Mode" Checked="Hard_Checked" Unchecked="Hard_Unchecked"
-                                >
-                
-            </AppBarToggleButton>
-
-            
-
+            <AppBarToggleButton Name= "Hard" Label="Hard Mode" Checked="Hard_Checked" Unchecked="Hard_Unchecked"></AppBarToggleButton>
 
             <CommandBar.SecondaryCommands>
                 <AppBarButton Name="Save" Icon="Save" Click="Save_Click" Label="Save" ></AppBarButton>
@@ -47,10 +40,8 @@
                 <AppBarButton Name="About" Icon="Help" Click="About_Click" Label="Help"></AppBarButton>
                 <AppBarButton Name="Exit" Icon="Cancel" Click="Exit_Click" Label="Exit" ></AppBarButton>
             </CommandBar.SecondaryCommands>
+            
         </CommandBar>
-        
-
-
 
     </Grid>
 </Page>
