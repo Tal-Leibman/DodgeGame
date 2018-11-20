@@ -251,7 +251,7 @@ namespace DodgeGame
         private void Hard_Checked(object sender, RoutedEventArgs e)
         {
             enemyCount = 13;
-            enemySpeed = 7.3;
+            enemySpeed = 7.5;
             gameMode = "Hard";
         }
 

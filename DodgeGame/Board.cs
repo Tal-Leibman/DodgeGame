@@ -36,7 +36,7 @@ namespace DodgeGame
         public Board(
             int enemyCount = 10,
             double enemySpeed = 6,
-            double boardSizeX = 1000,
+            double boardSizeX = 1200,
             double boardSizeY = 600)
 
         {
@@ -116,7 +116,7 @@ namespace DodgeGame
             double deltaX = entity1.X - entity2.X;
             double deltaY = entity1.Y - entity2.Y;
             double distance = Math.Sqrt(Math.Pow(deltaX, 2) + Math.Pow(deltaY, 2));
-            return distance > (entity1.Radius + entity2.Radius) * 3.5;
+            return distance > (entity1.Radius + entity2.Radius) * 4;
         }
 
         //Functions for Constructor END

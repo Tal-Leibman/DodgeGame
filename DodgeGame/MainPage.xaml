@@ -5,7 +5,7 @@
     xmlns:local="using:DodgeGame"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Height="650" Width="1000" XYFocusKeyboardNavigation="Disabled"
+    mc:Ignorable="d" Height="650" Width="1200" XYFocusKeyboardNavigation="Disabled"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Name="MainGrid">

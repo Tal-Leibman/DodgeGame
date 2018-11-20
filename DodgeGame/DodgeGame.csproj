@@ -139,6 +139,8 @@
     <Content Include="Assets\explosion.png" />
     <Content Include="Assets\Hubble.jpg" />
     <Content Include="Assets\ISS.png" />
+    <Content Include="Assets\rocket.png" />
+    <Content Include="Assets\spaceShip.gif" />
     <Content Include="Assets\ufo.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
