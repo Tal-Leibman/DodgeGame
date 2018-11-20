@@ -45,8 +45,10 @@ namespace DodgeGame
             BoardY = boardSizeY;
             AliveEnemies = enemyCount;
             Player = new Player();
-            Player.X = RandomX(Player);
-            Player.Y = RandomY(Player);
+            //place Player at random on the board with offset from the sides
+            Player.X = _rnd.Next((int)BoardX / 3, (int)(boardSizeX - boardSizeX / 3));
+            Player.Y = _rnd.Next((int)BoardY / 3, (int)(boardSizeY - boardSizeY / 3));
+
             Enemies = new Enemy[enemyCount];
             //data members to save game
             _savePlayer = new Player();
