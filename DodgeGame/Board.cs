@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DodgeGame
 {
     class Board
-    {   
+    {
         //counter for live enemies on board
         private int AliveEnemies { get; set; }
         // board X dimension 
@@ -53,39 +53,39 @@ namespace DodgeGame
             _saveEnemies = new Enemy[enemyCount];
             for (int k = 0; k < _saveEnemies.Length; k++)
             {
-                _saveEnemies[k] = new Enemy(0,0,enemySpeed);
+                _saveEnemies[k] = new Enemy(0, 0, enemySpeed);
             }
 
-            bool placeEmpty = false;
+            bool IsPlaceEmpty = false;
             // set first enemy, check if place is empty
             do
             {
-                Enemies[0] = new Enemy(0,0,enemySpeed);
+                Enemies[0] = new Enemy(0, 0, enemySpeed);
                 Enemies[0].X = RandomX(Enemies[0]);
                 Enemies[0].Y = RandomY(Enemies[0]);
-                placeEmpty = IsPlacement(Enemies[0], Player);
+                IsPlaceEmpty = IsPlacement(Enemies[0], Player);
 
-            } while (!placeEmpty);
+            } while (!IsPlaceEmpty);
             //set rest of enemies check if place is empty for each one
             int i = 1;
             do
             {
-                Enemies[i] = new Enemy(0,0,enemySpeed);
+                Enemies[i] = new Enemy(0, 0, enemySpeed);
                 Enemies[i].X = RandomX(Enemies[i]);
                 Enemies[i].Y = RandomY(Enemies[i]);
 
-                placeEmpty =
+                IsPlaceEmpty =
                     IsPlacement(Enemies[i], Player) &&
                     IsPlacement(Enemies[i], Enemies[0]);
-                if (placeEmpty)
+                if (IsPlaceEmpty)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        placeEmpty = IsPlacement(Enemies[i], Enemies[j]);
-                        if (!placeEmpty) { break; }
+                        IsPlaceEmpty = IsPlacement(Enemies[i], Enemies[j]);
+                        if (!IsPlaceEmpty) { break; }
                     }
                 }
-                if (placeEmpty) { i++; }
+                if (IsPlaceEmpty) { i++; }
 
             } while (i < enemyCount);
 
@@ -136,7 +136,7 @@ namespace DodgeGame
         }
 
         // check for collision entity1 always dies
-        private void IsCollison(Entity entity1, Entity entity2)
+        private void Collison(Entity entity1, Entity entity2)
         {
             if (entity1.IsAlive && entity2.IsAlive)
             {
@@ -163,7 +163,7 @@ namespace DodgeGame
                 {
                     if (i != j)
                     {
-                        IsCollison(Enemies[i], Enemies[j]);
+                        Collison(Enemies[i], Enemies[j]);
                     }
                 }
             }
@@ -174,7 +174,7 @@ namespace DodgeGame
         {
             foreach (Enemy enemy in Enemies)
             {
-                IsCollison(Player, enemy);
+                Collison(Player, enemy);
             }
         }
 
