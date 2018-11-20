@@ -85,13 +85,23 @@ namespace DodgeGame
         //updates player and enemies location to canvas
         private void UpdateCanvas()
         {
-            Canvas.SetTop(board.Player.Circle, board.Player.Y - board.Player.Radius);
-            Canvas.SetLeft(board.Player.Circle, board.Player.X - board.Player.Radius);
             for (int i = 0; i < board.Enemies.Length; i++)
             {
                 Canvas.SetTop(board.Enemies[i].Circle, board.Enemies[i].Y - board.Enemies[i].Radius);
                 Canvas.SetLeft(board.Enemies[i].Circle, board.Enemies[i].X - board.Enemies[i].Radius);
             }
+
+            if (board.Player.IsAlive)
+            {
+                Canvas.SetTop(board.Player.Circle, board.Player.Y - board.Player.Radius);
+                Canvas.SetLeft(board.Player.Circle, board.Player.X - board.Player.Radius);
+            }
+            else
+            {
+                Canvas.SetTop(board.Player.Circle, board.Player.Y - board.Player.Radius * 2);
+                Canvas.SetLeft(board.Player.Circle, board.Player.X - board.Player.Radius * 2);
+            }
+
         }
 
         // statues bar in command bar to show game information 

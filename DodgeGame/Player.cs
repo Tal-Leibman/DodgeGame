@@ -37,6 +37,8 @@ namespace DodgeGame
             ImageBrush playerDead = new ImageBrush();
             playerDead.ImageSource = bitmap;
             Circle.Fill = playerDead;
+            Circle.Height = 4 * Radius;
+            Circle.Width = 4 * Radius;
             IsAlive = false;
         }
 
@@ -44,7 +46,7 @@ namespace DodgeGame
         public void Move(bool up, bool down, bool left, bool right, Board board)
         {
             if (IsAlive)
-            {   
+            {
 
                 bool rangeLeft = X - _speed - Radius > 0;
                 bool rangeRight = X + _speed + Radius < board.BoardX;
