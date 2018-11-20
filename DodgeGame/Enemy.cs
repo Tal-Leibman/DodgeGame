@@ -15,7 +15,7 @@ namespace DodgeGame
         private double _speed;
 
         // builds enemy with default values
-        public Enemy(int x = 0, int y = 0, double speed = 6 ,double raidus = 22)
+        public Enemy(int x = 0, int y = 0, double speed = 6 ,double raidus = 20)
             : base(x, y, raidus)
         {
             _speed = speed;
