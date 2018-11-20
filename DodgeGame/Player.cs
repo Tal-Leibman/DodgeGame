@@ -14,7 +14,7 @@ namespace DodgeGame
     {
         private double _speed;
         //builds the player with default values
-        public Player(double x = 0, double y = 0, double radius = 14, double speed = 11.5)
+        public Player(double x = 0, double y = 0, double radius = 16, double speed = 12)
             : base(x, y, radius)
         {
             _speed = speed;
