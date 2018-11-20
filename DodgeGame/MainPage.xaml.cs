@@ -76,6 +76,7 @@ namespace DodgeGame
         private void AddToCanvas()
         {
             canvasBoard.Children.Add(board.Player.Circle);
+            Canvas.SetZIndex(board.Player.Circle, 1);
             for (int i = 0; i < board.Enemies.Length; i++)
             {
                 canvasBoard.Children.Add(board.Enemies[i].Circle);
