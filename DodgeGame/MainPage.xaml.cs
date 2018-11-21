@@ -318,7 +318,9 @@ namespace DodgeGame
         private void LaserEvent()
         {
             if (laserTimer.IsEnabled)
-            { laserTimer.Stop(); }
+            {
+                laserTimer.Stop();
+            }
             if (board.Player.IsAlive && ((up ^ down) ^ (left ^ right)))
             {
 
