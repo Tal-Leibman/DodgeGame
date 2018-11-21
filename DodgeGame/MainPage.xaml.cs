@@ -307,8 +307,9 @@ namespace DodgeGame
         {
             string msg =
                 "You control the space ship with the keyboard direction keys.\n" +
-                "The goal is to avoid all the UFO'S.\n" +
-                "Click Refresh or hit 'F2' to start a new game.\n" +
+                "Use 'W' 'A' 'S' 'D' to fire a laser.\n"+
+                "The goal is to destroy all the UFO'S.\n" +
+                "Click Refresh or hit 'Shift' to start a new game.\n" +
                 "Hit 'Control' to pause/resume.\n" +
                 "The save/load button stops the game, click resume to keep playing.\n" +
                 "When 'Hard mode' is pressed the next game will have faster UFO's and more of them.\n" +
