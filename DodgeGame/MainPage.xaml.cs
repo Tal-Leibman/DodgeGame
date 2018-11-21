@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -31,8 +32,9 @@ namespace DodgeGame
     {
         // Declare board
         Board board;
-        DispatcherTimer timer, laserTimer;
+        DispatcherTimer timer;
         Line laser;
+        
         // bool for keyboard direction true when pressed , false on release
         bool up, down, left, right;
         // win lose log
@@ -54,19 +56,12 @@ namespace DodgeGame
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             timer.Tick += Timer_Tick;
-            //timer for laser event
-            laserTimer = new DispatcherTimer();
-            laserTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
-            laserTimer.Tick += LaserTimer_Tick;
 
             // Dialog Message
             Welcome();
         }
 
-        private void LaserTimer_Tick(object sender, object e)
-        {
-            canvasBoard.Children.Remove(laser);
-        }
+
 
         private void Timer_Tick(object sender, object e)
         {
@@ -97,6 +92,7 @@ namespace DodgeGame
         //updates player and enemies location to canvas
         private void UpdateCanvas()
         {
+
             for (int i = 0; i < board.Enemies.Length; i++)
             {
                 Canvas.SetTop(board.Enemies[i].Circle, board.Enemies[i].Y - board.Enemies[i].Radius);
@@ -149,9 +145,9 @@ namespace DodgeGame
         // keyboard event for moving the player update bool up,down,left,right true
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-            if (args.VirtualKey == VirtualKey.W ||
-                args.VirtualKey == VirtualKey.S ||
-                args.VirtualKey == VirtualKey.A ||
+            if (args.VirtualKey == VirtualKey.W ^
+                args.VirtualKey == VirtualKey.S ^
+                args.VirtualKey == VirtualKey.A ^
                 args.VirtualKey == VirtualKey.D)
             {
                 LaserEvent(args.VirtualKey);
@@ -174,7 +170,7 @@ namespace DodgeGame
                 case VirtualKey.Control:
                     PauseResume();
                     break;
-                case VirtualKey.F2:
+                case VirtualKey.Shift:
                     StartNewGame();
                     break;
                 default:
@@ -320,12 +316,9 @@ namespace DodgeGame
             await new MessageDialog(msg, "Welcome to DodgeGame").ShowAsync();
         }
 
-        private void LaserEvent(VirtualKey key)
+        private async Task LaserEvent(VirtualKey key)
         {
-            if (laserTimer.IsEnabled)
-            {
-                laserTimer.Stop();
-            }
+
             if (board.Player.IsAlive)
             {
 
@@ -403,7 +396,8 @@ namespace DodgeGame
                 }
                 //add to canvas
                 canvasBoard.Children.Add(laser);
-                laserTimer.Start();
+                await Task.Delay(20);
+                canvasBoard.Children.Remove(laser);
             }
 
         }
