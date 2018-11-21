@@ -45,8 +45,8 @@ namespace DodgeGame
             AliveEnemies = enemyCount;
             Player = new Player();
             //place Player at random on the board with offset from the sides
-            Player.X = _rnd.Next((int)BoardX / 3, (int)(boardSizeX - boardSizeX / 3));
-            Player.Y = _rnd.Next((int)BoardY / 3, (int)(boardSizeY - boardSizeY / 3));
+            Player.X = _rnd.Next((int)Player.Radius, (int)boardSizeX);
+            Player.Y = _rnd.Next((int)Player.Radius, (int)boardSizeY);
 
             Enemies = new Enemy[enemyCount];
             //data members to save game
@@ -203,7 +203,9 @@ namespace DodgeGame
             foreach (Enemy enemy in Enemies)
             {
                 if (enemy.IsAlive)
+                {
                     return false;
+                }
             }
             return true;
         }
