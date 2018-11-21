@@ -25,7 +25,6 @@ namespace DodgeGame
         private Player _savePlayer;
         private Enemy[] _saveEnemies;
 
-
         /*
          * Builds a new game board with default values.
          * if boardSizeX or boardSizeY is changed from default, check MainPage.xaml 
@@ -182,18 +181,6 @@ namespace DodgeGame
 
         //Functions for movement and collisions END
 
-        //Kill all enemies when game is won
-        private void KillAllEnemies()
-        {
-            for (int i = 0; i < Enemies.Length; i++)
-            {
-                if (Enemies[i].IsAlive)
-                {
-                    Enemies[i].Dead();
-                }
-            }
-        }
-
         //check if player is dead or 1 enemy left to end game
         public string GameState()
         {
@@ -201,15 +188,24 @@ namespace DodgeGame
             {
                 return "GameLost";
             }
-            else if (AliveEnemies == 0)
+            else if (AreEnemiesDead())
             {
-                KillAllEnemies();
                 return "GameWon";
             }
             else
             {
                 return "GameOn";
             }
+        }
+
+        private bool AreEnemiesDead()
+        {
+            foreach (Enemy enemy in Enemies)
+            {
+                if (enemy.IsAlive)
+                    return false;
+            }
+            return true;
         }
 
         //save game state

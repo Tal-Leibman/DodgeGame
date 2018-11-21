@@ -34,7 +34,7 @@ namespace DodgeGame
         DispatcherTimer timer, laserTimer;
         Line laser;
         // bool for keyboard direction true when pressed , false on release
-        bool up, down, left, right, spaceBar;
+        bool up, down, left, right;
         // win lose log
         int win = 0;
         int lose = 0;
@@ -264,7 +264,7 @@ namespace DodgeGame
 
         private void Hard_Checked(object sender, RoutedEventArgs e)
         {
-            enemyCount = 13;
+            enemyCount = 18;
             enemySpeed = 7.5;
             gameMode = "Hard";
         }
