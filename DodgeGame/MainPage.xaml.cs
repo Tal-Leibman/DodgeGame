@@ -39,7 +39,7 @@ namespace DodgeGame
         int win = 0;
         int lose = 0;
         // enemy speed and amount default values
-        double enemySpeed = 6.5;
+        double enemySpeed = 9;
         int enemyCount = 10;
         string gameMode = "Normal";
         enum Direction {Up,Down,Left,Right };
@@ -56,7 +56,7 @@ namespace DodgeGame
             timer.Tick += Timer_Tick;
             //timer for laser event
             laserTimer = new DispatcherTimer();
-            laserTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
+            laserTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             laserTimer.Tick += LaserTimer_Tick;
 
             // Dialog Message
@@ -269,15 +269,15 @@ namespace DodgeGame
 
         private void Hard_Checked(object sender, RoutedEventArgs e)
         {
-            enemyCount = 18;
-            enemySpeed = 7.5;
+            enemyCount = 20;
+            enemySpeed = 9;
             gameMode = "Hard";
         }
 
         private void Hard_Unchecked(object sender, RoutedEventArgs e)
         {
             enemyCount = 10;
-            enemySpeed = 6.5;
+            enemySpeed = 9;
             gameMode = "Normal";
         }
 
