@@ -9,7 +9,7 @@ namespace DodgeGame
     class Board
     {
         //counter for live enemies on board
-        private int AliveEnemies { get; set; }
+        public int AliveEnemies { get; set; }
         // board X dimension 
         public double BoardX { get; }
         // board Y dimension 
@@ -201,7 +201,7 @@ namespace DodgeGame
             {
                 return "GameLost";
             }
-            else if (AliveEnemies == 1)
+            else if (AliveEnemies == 0)
             {
                 KillAllEnemies();
                 return "GameWon";
@@ -246,7 +246,6 @@ namespace DodgeGame
                 Enemies[i].Circle.Fill = _saveEnemies[i].Circle.Fill;
             }
         }
-
 
     }
 }

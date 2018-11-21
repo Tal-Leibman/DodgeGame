@@ -55,7 +55,7 @@ namespace DodgeGame
             timer.Tick += Timer_Tick;
             //timer for laser event
             laserTimer = new DispatcherTimer();
-            laserTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            laserTimer.Interval = new TimeSpan(0, 0, 0, 0, 80);
             laserTimer.Tick += LaserTimer_Tick;
 
             // Dialog Message
@@ -64,10 +64,7 @@ namespace DodgeGame
 
         private void LaserTimer_Tick(object sender, object e)
         {
-            // board.Laser
-            // add laser to canvas
-            // set laser on canvas
-            //wait 1 seconde and remove it
+            canvasBoard.Children.Remove(laser);
         }
 
         private void Timer_Tick(object sender, object e)
@@ -319,19 +316,18 @@ namespace DodgeGame
         }
 
         private void LaserEvent()
-        {   
-            if(board.Player.IsAlive && ((up^down)^(left^right)))
+        {
+            if (laserTimer.IsEnabled)
+            { laserTimer.Stop(); }
+            if (board.Player.IsAlive && ((up ^ down) ^ (left ^ right)))
             {
+
                 laser = new Line
                 {
-                    //Fill = new SolidColorBrush(Colors.Purple),
-                    //Height = 5,
-                    //Width = 5,
-                    Stroke = new SolidColorBrush(Colors.Purple),
-                    StrokeThickness = 5,
+                    Stroke = new SolidColorBrush(Colors.Lime),
+                    StrokeThickness = 3,
                     X1 = board.Player.X,
                     Y1 = board.Player.Y,
-
                 };
 
                 // player movement direction when fired
@@ -339,24 +335,65 @@ namespace DodgeGame
                 {
                     laser.X2 = laser.X1;
                     laser.Y2 = 0;
+                    for (int i = 0; i < board.Enemies.Length; i++)
+                    {
+                        if (board.Enemies[i].Y < laser.Y1 &&
+                            board.Enemies[i].X <= laser.X1 + board.Enemies[i].Radius &&
+                            board.Enemies[i].X >= laser.X1 - board.Enemies[i].Radius)
+                        {
+                            board.Enemies[i].Dead();
+                            board.AliveEnemies--;
+                        }
+                    }
                 }
                 else if (!up && down && !left && !right)
                 {
                     laser.X2 = laser.X1;
                     laser.Y2 = board.BoardY;
+                    for (int i = 0; i < board.Enemies.Length; i++)
+                    {
+                        if (board.Enemies[i].Y > laser.Y1 &&
+                            board.Enemies[i].X <= laser.X1 + board.Enemies[i].Radius &&
+                            board.Enemies[i].X >= laser.X1 - board.Enemies[i].Radius)
+                        {
+                            board.Enemies[i].Dead();
+                            board.AliveEnemies--;
+                        }
+                    }
                 }
                 else if (!up && !down && left && !right)
                 {
                     laser.X2 = 0;
                     laser.Y2 = laser.Y1;
+                    for (int i = 0; i < board.Enemies.Length; i++)
+                    {
+                        if (board.Enemies[i].X < laser.X1 &&
+                            board.Enemies[i].Y <= laser.Y1 + board.Enemies[i].Radius &&
+                            board.Enemies[i].Y >= laser.Y1 - board.Enemies[i].Radius)
+                        {
+                            board.Enemies[i].Dead();
+                            board.AliveEnemies--;
+                        }
+                    }
                 }
                 else if (!up && !down && !left && right)
                 {
                     laser.X2 = board.BoardX;
                     laser.Y2 = laser.Y1;
+                    for (int i = 0; i < board.Enemies.Length; i++)
+                    {
+                        if (board.Enemies[i].X > laser.X1 &&
+                            board.Enemies[i].Y <= laser.Y1 + board.Enemies[i].Radius &&
+                            board.Enemies[i].Y >= laser.Y1 - board.Enemies[i].Radius)
+                        {
+                            board.Enemies[i].Dead();
+                            board.AliveEnemies--;
+                        }
+                    }
                 }
                 //add to canvas
                 canvasBoard.Children.Add(laser);
+                laserTimer.Start();
             }
 
         }
