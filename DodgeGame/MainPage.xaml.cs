@@ -54,6 +54,7 @@ namespace DodgeGame
             timer.Tick += Timer_Tick;
             // Dialog Message
             Welcome();
+            CommandBar.Focus(FocusState.Programmatic);
 
         }
 
