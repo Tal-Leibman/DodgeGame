@@ -42,6 +42,7 @@ namespace DodgeGame
         double enemySpeed = 6.5;
         int enemyCount = 10;
         string gameMode = "Normal";
+        enum Direction {Up,Down,Left,Right };
 
         public MainPage()
         {
@@ -55,7 +56,7 @@ namespace DodgeGame
             timer.Tick += Timer_Tick;
             //timer for laser event
             laserTimer = new DispatcherTimer();
-            laserTimer.Interval = new TimeSpan(0, 0, 0, 0, 80);
+            laserTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
             laserTimer.Tick += LaserTimer_Tick;
 
             // Dialog Message
@@ -148,7 +149,14 @@ namespace DodgeGame
         // keyboard event for moving the player update bool up,down,left,right true
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-
+            if (args.VirtualKey == VirtualKey.W ||
+                args.VirtualKey == VirtualKey.S ||
+                args.VirtualKey == VirtualKey.A ||
+                args.VirtualKey == VirtualKey.D)
+            {
+                LaserEvent(args.VirtualKey);
+            }
+            
             switch (args.VirtualKey)
             {
                 case VirtualKey.Up:
@@ -168,9 +176,6 @@ namespace DodgeGame
                     break;
                 case VirtualKey.F2:
                     StartNewGame();
-                    break;
-                case VirtualKey.Space:
-                    LaserEvent();
                     break;
                 default:
                     break;
@@ -315,13 +320,13 @@ namespace DodgeGame
             await new MessageDialog(msg, "Welcome to DodgeGame").ShowAsync();
         }
 
-        private void LaserEvent()
+        private void LaserEvent(VirtualKey key)
         {
             if (laserTimer.IsEnabled)
             {
                 laserTimer.Stop();
             }
-            if (board.Player.IsAlive && ((up ^ down) ^ (left ^ right)))
+            if (board.Player.IsAlive)
             {
 
                 laser = new Line
@@ -333,7 +338,8 @@ namespace DodgeGame
                 };
 
                 // player movement direction when fired
-                if (up && !down && !left && !right)
+                //Up
+                if (key==VirtualKey.W)
                 {
                     laser.X2 = laser.X1;
                     laser.Y2 = 0;
@@ -348,7 +354,8 @@ namespace DodgeGame
                         }
                     }
                 }
-                else if (!up && down && !left && !right)
+                //Down  
+                else if (key == VirtualKey.S)
                 {
                     laser.X2 = laser.X1;
                     laser.Y2 = board.BoardY;
@@ -363,7 +370,8 @@ namespace DodgeGame
                         }
                     }
                 }
-                else if (!up && !down && left && !right)
+                //Left
+                else if (key == VirtualKey.A)
                 {
                     laser.X2 = 0;
                     laser.Y2 = laser.Y1;
@@ -378,7 +386,7 @@ namespace DodgeGame
                         }
                     }
                 }
-                else if (!up && !down && !left && right)
+                else if (key == VirtualKey.D)
                 {
                     laser.X2 = board.BoardX;
                     laser.Y2 = laser.Y1;
