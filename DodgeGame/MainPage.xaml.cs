@@ -52,16 +52,25 @@ namespace DodgeGame
             // Keyboard event movement player and shortcuts
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
+            Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDownLaser;
             // timer for running the game
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             timer.Tick += Timer_Tick;
-
             // Dialog Message
             Welcome();
         }
 
-
+        private async void CoreWindow_KeyDownLaser(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        {
+            if (args.VirtualKey == VirtualKey.W ^
+                args.VirtualKey == VirtualKey.S ^
+                args.VirtualKey == VirtualKey.A ^
+                args.VirtualKey == VirtualKey.D)
+            {
+                await LaserEvent(args.VirtualKey);
+            }
+        }
 
         private void Timer_Tick(object sender, object e)
         {
@@ -145,14 +154,6 @@ namespace DodgeGame
         // keyboard event for moving the player update bool up,down,left,right true
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-            if (args.VirtualKey == VirtualKey.W ^
-                args.VirtualKey == VirtualKey.S ^
-                args.VirtualKey == VirtualKey.A ^
-                args.VirtualKey == VirtualKey.D)
-            {
-                LaserEvent(args.VirtualKey);
-            }
-            
             switch (args.VirtualKey)
             {
                 case VirtualKey.Up:
