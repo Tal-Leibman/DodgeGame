@@ -246,5 +246,7 @@ namespace DodgeGame
                 Enemies[i].Circle.Fill = _saveEnemies[i].Circle.Fill;
             }
         }
+
+
     }
 }

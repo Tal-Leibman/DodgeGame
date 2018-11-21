@@ -31,9 +31,10 @@ namespace DodgeGame
     {
         // Declare board
         Board board;
-        DispatcherTimer timer;
+        DispatcherTimer timer, laserTimer;
+        Line laser;
         // bool for keyboard direction true when pressed , false on release
-        bool up, down, left, right;
+        bool up, down, left, right, spaceBar;
         // win lose log
         int win = 0;
         int lose = 0;
@@ -52,9 +53,21 @@ namespace DodgeGame
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             timer.Tick += Timer_Tick;
+            //timer for laser event
+            laserTimer = new DispatcherTimer();
+            laserTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            laserTimer.Tick += LaserTimer_Tick;
+
             // Dialog Message
             Welcome();
-           
+        }
+
+        private void LaserTimer_Tick(object sender, object e)
+        {
+            // board.Laser
+            // add laser to canvas
+            // set laser on canvas
+            //wait 1 seconde and remove it
         }
 
         private void Timer_Tick(object sender, object e)
@@ -138,6 +151,7 @@ namespace DodgeGame
         // keyboard event for moving the player update bool up,down,left,right true
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
+
             switch (args.VirtualKey)
             {
                 case VirtualKey.Up:
@@ -157,6 +171,9 @@ namespace DodgeGame
                     break;
                 case VirtualKey.F2:
                     StartNewGame();
+                    break;
+                case VirtualKey.Space:
+                    LaserEvent();
                     break;
                 default:
                     break;
@@ -299,6 +316,49 @@ namespace DodgeGame
                 "When 'Hard mode' is pressed the next game will have faster UFO's and more of them.\n" +
                 "Click Help button to see this message again";
             await new MessageDialog(msg, "Welcome to DodgeGame").ShowAsync();
+        }
+
+        private void LaserEvent()
+        {   
+            if(board.Player.IsAlive && ((up^down)^(left^right)))
+            {
+                laser = new Line
+                {
+                    //Fill = new SolidColorBrush(Colors.Purple),
+                    //Height = 5,
+                    //Width = 5,
+                    Stroke = new SolidColorBrush(Colors.Purple),
+                    StrokeThickness = 5,
+                    X1 = board.Player.X,
+                    Y1 = board.Player.Y,
+
+                };
+
+                // player movement direction when fired
+                if (up && !down && !left && !right)
+                {
+                    laser.X2 = laser.X1;
+                    laser.Y2 = 0;
+                }
+                else if (!up && down && !left && !right)
+                {
+                    laser.X2 = laser.X1;
+                    laser.Y2 = board.BoardY;
+                }
+                else if (!up && !down && left && !right)
+                {
+                    laser.X2 = 0;
+                    laser.Y2 = laser.Y1;
+                }
+                else if (!up && !down && !left && right)
+                {
+                    laser.X2 = board.BoardX;
+                    laser.Y2 = laser.Y1;
+                }
+                //add to canvas
+                canvasBoard.Children.Add(laser);
+            }
+
         }
 
     }
