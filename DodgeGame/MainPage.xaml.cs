@@ -38,11 +38,12 @@ namespace DodgeGame
         // win lose log
         int win = 0;
         int lose = 0;
+        int laserAmmo;
         // enemy speed and amount default values
         double enemySpeed = 9;
         int enemyCount = 10;
         string gameMode = "Normal";
-        enum Direction {Up,Down,Left,Right };
+        enum Direction { Up, Down, Left, Right };
 
         public MainPage()
         {
@@ -123,7 +124,7 @@ namespace DodgeGame
         private void StatuesBar(string gameState)
         {
             GameCounter.Text = "Games won: " + win + "\tGame State:\t" + gameState
-                 + "\nGames lost: " + lose + "\tDifficulty:\t" + gameMode;
+                 + "\tAmmo: " + laserAmmo + "\nGames lost: " + lose + "\tDifficulty:\t" + gameMode;
         }
 
         // Sync game state (win/lose) from board
@@ -206,6 +207,7 @@ namespace DodgeGame
             {
                 timer.Stop();
             }
+            laserAmmo = 5;
             up = false;
             down = false;
             left = false;
@@ -306,7 +308,7 @@ namespace DodgeGame
         {
             string msg =
                 "You control the space ship with the keyboard direction keys.\n" +
-                "Use 'W' 'A' 'S' 'D' to fire a laser.\n"+
+                "Use 'W' 'A' 'S' 'D' to fire a laser.\n" +
                 "The goal is to destroy all the UFO'S.\n" +
                 "Click Refresh or hit 'Shift' to start a new game.\n" +
                 "Hit 'Control' to pause/resume.\n" +
@@ -319,7 +321,7 @@ namespace DodgeGame
         private async Task LaserEvent(VirtualKey key)
         {
 
-            if (board.Player.IsAlive)
+            if (board.Player.IsAlive && laserAmmo > 0 && timer.IsEnabled)
             {
 
                 Line laser = new Line
@@ -332,7 +334,7 @@ namespace DodgeGame
 
                 // player movement direction when fired
                 //Up
-                if (key==VirtualKey.W)
+                if (key == VirtualKey.W)
                 {
                     laser.X2 = laser.X1;
                     laser.Y2 = 0;
@@ -379,6 +381,7 @@ namespace DodgeGame
                         }
                     }
                 }
+                //Right
                 else if (key == VirtualKey.D)
                 {
                     laser.X2 = board.BoardX;
@@ -394,6 +397,8 @@ namespace DodgeGame
                         }
                     }
                 }
+
+                laserAmmo--;
                 //add to canvas
                 canvasBoard.Children.Add(laser);
                 await Task.Delay(20);
