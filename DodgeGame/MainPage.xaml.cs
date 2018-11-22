@@ -33,8 +33,6 @@ namespace DodgeGame
         // Declare board
         Board board;
         DispatcherTimer timer;
-        Line laser;
-        
         // bool for keyboard direction true when pressed , false on release
         bool up, down, left, right;
         // win lose log
@@ -324,7 +322,7 @@ namespace DodgeGame
             if (board.Player.IsAlive)
             {
 
-                laser = new Line
+                Line laser = new Line
                 {
                     Stroke = new SolidColorBrush(Colors.Lime),
                     StrokeThickness = 3,
