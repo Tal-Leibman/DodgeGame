@@ -135,11 +135,9 @@
     <None Include="DodgeGame_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\background.png" />
     <Content Include="Assets\bomb.png" />
     <Content Include="Assets\explosion.png" />
-    <Content Include="Assets\Hubble.jpg" />
-    <Content Include="Assets\ISS.png" />
-    <Content Include="Assets\rocket.png" />
     <Content Include="Assets\spaceShip.gif" />
     <Content Include="Assets\ufo.png" />
     <Content Include="Properties\Default.rd.xml" />

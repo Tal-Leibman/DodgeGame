@@ -16,7 +16,7 @@
         
         <Canvas  Name="canvasBoard" Grid.Row="1" >
             <Canvas.Background>
-                <ImageBrush ImageSource="ms-appx:///Assets/Hubble.jpg"></ImageBrush>
+                <ImageBrush ImageSource="ms-appx:///Assets/background.png"></ImageBrush>
             </Canvas.Background>
         </Canvas>
 

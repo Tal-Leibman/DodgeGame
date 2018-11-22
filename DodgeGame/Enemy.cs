@@ -15,7 +15,7 @@ namespace DodgeGame
         private double _speed;
 
         // builds enemy with default values
-        public Enemy(int x = 0, int y = 0, double speed = 6 ,double raidus = 16)
+        public Enemy(int x = 0, int y = 0, double speed = 6 ,double raidus = 20)
             : base(x, y, raidus)
         {
             _speed = speed;
@@ -25,7 +25,7 @@ namespace DodgeGame
             ImageBrush enemy = new ImageBrush();
             enemy.ImageSource = bitmap;
             Circle.Fill = enemy;
-            Circle.Stroke = new SolidColorBrush(Colors.Green);
+            Circle.Stroke = new SolidColorBrush(Colors.Red);
             Circle.StrokeThickness = 2;
         }
 

@@ -14,17 +14,17 @@ namespace DodgeGame
     {
         private double _speed;
         //builds the player with default values
-        public Player(double x = 0, double y = 0, double radius = 15, double speed = 12.5)
+        public Player(double x = 0, double y = 0, double radius = 20, double speed = 12.5)
             : base(x, y, radius)
         {
             _speed = speed;
             BitmapImage bitmap = new BitmapImage();
-            Uri uri = new Uri("ms-appx:///Assets/rocket.png");
+            Uri uri = new Uri("ms-appx:///Assets/spaceShip.gif");
             bitmap.UriSource = uri;
             ImageBrush playerAlive = new ImageBrush();
             playerAlive.ImageSource = bitmap;
             Circle.Fill = playerAlive;
-            Circle.Stroke = new SolidColorBrush(Colors.Yellow);
+            Circle.Stroke = new SolidColorBrush(Colors.Black);
             Circle.StrokeThickness = 3;
         }
 
