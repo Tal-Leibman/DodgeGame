@@ -12,6 +12,7 @@ namespace DodgeGame
 {
     class Player : Entity
     {
+        private const double RADIANS_45 = 45 * Math.PI / 180;
         private double _speed;
         //builds the player with default values
         public Player(double x = 0, double y = 0, double radius = 17, double speed = 12.5)
@@ -39,7 +40,7 @@ namespace DodgeGame
             _circle.Fill = playerDead;
             _circle.Height = 4 * Radius;
             _circle.Width = 4 * Radius;
-            _isAlive= false;
+            _isAlive = false;
         }
 
         // move the player with the keyboard direction keys
@@ -78,29 +79,29 @@ namespace DodgeGame
                 //Right and Up
                 if (right && up && rangeRight && rangeUp && !down && !left)
                 {
-                    _x += _speed * Math.Sin(45);
-                   _y -= _speed * Math.Sin(45);
+                    _x += _speed * Math.Sin(RADIANS_45);
+                    _y -= _speed * Math.Sin(RADIANS_45);
                 }
 
                 //Right and Down
                 else if (right && down && rangeRight && rangeDown && !up && !left)
                 {
-                    _x += _speed * Math.Sin(45);
-                    _y += _speed * Math.Sin(45);
+                    _x += _speed * Math.Sin(RADIANS_45);
+                    _y += _speed * Math.Sin(RADIANS_45);
                 }
 
                 //Left and Down
                 else if (left && down && rangeLeft && rangeDown && !up && !right)
                 {
-                    _x -= _speed * Math.Sin(45);
-                    _y += _speed * Math.Sin(45);
+                    _x -= _speed * Math.Sin(RADIANS_45);
+                    _y += _speed * Math.Sin(RADIANS_45);
                 }
 
                 //Left and Up
                 else if (left && up && rangeLeft && rangeUp && !down && !right)
                 {
-                    _x -= _speed * Math.Sin(45);
-                    _y -= _speed * Math.Sin(45);
+                    _x -= _speed * Math.Sin(RADIANS_45);
+                    _y -= _speed * Math.Sin(RADIANS_45);
                 }
 
             }
