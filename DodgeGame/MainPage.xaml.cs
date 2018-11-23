@@ -326,7 +326,7 @@ namespace DodgeGame
 
                 Line laser = new Line
                 {
-                    Stroke = new SolidColorBrush(Colors.Lime),
+                    Stroke = new SolidColorBrush(Colors.DarkRed),
                     StrokeThickness = 3,
                     X1 = board.Player.X,
                     Y1 = board.Player.Y,
@@ -401,7 +401,7 @@ namespace DodgeGame
                 laserAmmo--;
                 //add to canvas
                 canvasBoard.Children.Add(laser);
-                await Task.Delay(20);
+                await Task.Delay(80);
                 canvasBoard.Children.Remove(laser);
             }
 

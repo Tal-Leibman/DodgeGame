@@ -11,32 +11,41 @@ namespace DodgeGame
 {
     class Entity
     {
-        
+        protected double _x;
+
+        protected double _y;
+
+        protected bool _isAlive;
+
+        protected double _radius;
+
+        protected Ellipse _circle;
+
         //Parent class for Player(keyboard controlled) and Enemy(chase the player)
 
         public Entity(double x, double y, double radius)
         {
-            Radius = radius;
-            X = x;
-            Y = y;
-            IsAlive = true;
+            _radius = radius;
+            _x = x;
+            _y = y;
+            _isAlive = true;
 
-            Circle = new Ellipse
+            _circle = new Ellipse
             {
-                Width = Radius * 2,
-                Height = Radius * 2,
+                Height = _radius * 2,
+                Width = _radius * 2,
             };
         }
 
-        public Ellipse Circle { get; }
+        public Ellipse Circle { get { return _circle; } }
 
-        public double X { get; set; }
+        public double X { get { return _x; } set { _x = value; } }
 
-        public double Y { get; set;}
+        public double Y { get { return _y; } set { _y = value; } }
 
-        public bool IsAlive { get; set;}
+        public bool IsAlive { get { return _isAlive; } set { _isAlive = value; } }
 
-        public double Radius { get; }
+        public double Radius { get { return _radius; } }
 
         public virtual void Dead() { }
 

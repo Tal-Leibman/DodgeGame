@@ -24,21 +24,21 @@ namespace DodgeGame
             bitmap.UriSource = uri;
             ImageBrush enemy = new ImageBrush();
             enemy.ImageSource = bitmap;
-            Circle.Fill = enemy;
-            Circle.Stroke = new SolidColorBrush(Colors.Red);
-            Circle.StrokeThickness = 2;
+            _circle.Fill = enemy;
+            _circle.Stroke = new SolidColorBrush(Colors.Red);
+            _circle.StrokeThickness = 2;
         }
 
         // enemy stops moving and don't interact with other entity's
         public override void Dead()
         {
-            IsAlive = false;
+            _isAlive = false;
             BitmapImage dead = new BitmapImage();
             Uri uriDead = new Uri("ms-appx:///Assets/bomb.png");
             dead.UriSource = uriDead;
             ImageBrush enemy = new ImageBrush();
             enemy.ImageSource = dead;
-            Circle.Fill = enemy;
+            _circle.Fill = enemy;
         }
 
         //chase player in a straight line with fixed speed
@@ -48,26 +48,26 @@ namespace DodgeGame
             double deltaY = Math.Abs(Y - playerY);
             double alpha = Math.Atan(deltaY / deltaX);
 
-            if (IsAlive)
+            if (_isAlive)
             {
                 // move by X
                 if (playerX < X)
                 {
-                    X -= _speed * Math.Cos(alpha);
+                    _x -= _speed * Math.Cos(alpha);
                 }
                 else if (playerX > X)
                 {
-                    X += _speed * Math.Cos(alpha);
+                    _x += _speed * Math.Cos(alpha);
                 }
 
                 // move by Y
                 if (playerY < Y)
                 {
-                    Y -= _speed * Math.Sin(alpha);
+                    _y -= _speed * Math.Sin(alpha);
                 }
                 else if (playerY > Y)
                 {
-                    Y += _speed * Math.Sin(alpha);
+                    _y += _speed * Math.Sin(alpha);
                 }
             }
 

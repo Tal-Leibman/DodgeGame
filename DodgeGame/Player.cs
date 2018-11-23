@@ -23,9 +23,9 @@ namespace DodgeGame
             bitmap.UriSource = uri;
             ImageBrush playerAlive = new ImageBrush();
             playerAlive.ImageSource = bitmap;
-            Circle.Fill = playerAlive;
-            Circle.Stroke = new SolidColorBrush(Colors.Black);
-            Circle.StrokeThickness = 3;
+            _circle.Fill = playerAlive;
+            _circle.Stroke = new SolidColorBrush(Colors.Black);
+            _circle.StrokeThickness = 3;
         }
 
         //kills the player and ends the game
@@ -36,16 +36,16 @@ namespace DodgeGame
             bitmap.UriSource = uri;
             ImageBrush playerDead = new ImageBrush();
             playerDead.ImageSource = bitmap;
-            Circle.Fill = playerDead;
-            Circle.Height = 4 * Radius;
-            Circle.Width = 4 * Radius;
-            IsAlive = false;
+            _circle.Fill = playerDead;
+            _circle.Height = 4 * Radius;
+            _circle.Width = 4 * Radius;
+            _isAlive= false;
         }
 
         // move the player with the keyboard direction keys
         public void Move(bool up, bool down, bool left, bool right, Board board)
         {
-            if (IsAlive)
+            if (_isAlive)
             {
 
                 bool rangeLeft = X - _speed - Radius > 0;
@@ -58,19 +58,19 @@ namespace DodgeGame
                 {
                     if (left && rangeLeft)
                     {
-                        X -= _speed;
+                        _x -= _speed;
                     }
                     else if (right && rangeRight)
                     {
-                        X += _speed;
+                        _x += _speed;
                     }
                     else if (up && rangeUp)
                     {
-                        Y -= _speed;
+                        _y -= _speed;
                     }
                     else if (down && rangeDown)
                     {
-                        Y += _speed;
+                        _y += _speed;
                     }
                 }
                 // diagonal movement
@@ -78,29 +78,29 @@ namespace DodgeGame
                 //Right and Up
                 if (right && up && rangeRight && rangeUp && !down && !left)
                 {
-                    X += _speed * Math.Sin(45);
-                    Y -= _speed * Math.Sin(45);
+                    _x += _speed * Math.Sin(45);
+                   _y -= _speed * Math.Sin(45);
                 }
 
                 //Right and Down
                 else if (right && down && rangeRight && rangeDown && !up && !left)
                 {
-                    X += _speed * Math.Sin(45);
-                    Y += _speed * Math.Sin(45);
+                    _x += _speed * Math.Sin(45);
+                    _y += _speed * Math.Sin(45);
                 }
 
                 //Left and Down
                 else if (left && down && rangeLeft && rangeDown && !up && !right)
                 {
-                    X -= _speed * Math.Sin(45);
-                    Y += _speed * Math.Sin(45);
+                    _x -= _speed * Math.Sin(45);
+                    _y += _speed * Math.Sin(45);
                 }
 
                 //Left and Up
                 else if (left && up && rangeLeft && rangeUp && !down && !right)
                 {
-                    X -= _speed * Math.Sin(45);
-                    Y -= _speed * Math.Sin(45);
+                    _x -= _speed * Math.Sin(45);
+                    _y -= _speed * Math.Sin(45);
                 }
 
             }

@@ -181,7 +181,7 @@ namespace DodgeGame
 
         //Functions for movement and collisions END
 
-        //check if player is dead or 1 enemy left to end game
+        //check if player\enemies are dead to end game
         public string GameState()
         {
             if (!Player.IsAlive)
@@ -198,6 +198,7 @@ namespace DodgeGame
             }
         }
 
+        // returns true if all enemies are dead
         private bool AreEnemiesDead()
         {
             foreach (Enemy enemy in Enemies)
