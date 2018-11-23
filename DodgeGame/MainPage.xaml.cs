@@ -39,7 +39,7 @@ namespace DodgeGame
         int win = 0;
         int lose = 0;
         int laserAmmo;
-        // enemy speed and amount default values
+        // game settings default values 
         double enemySpeed = 9;
         int enemyCount = 10;
         string gameMode = "Normal";
@@ -60,6 +60,7 @@ namespace DodgeGame
             Welcome();
         }
 
+        //keyboard event for LaserEvent()
         private async void CoreWindow_KeyDownLaser(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
             if (args.VirtualKey == VirtualKey.W ^
@@ -71,6 +72,7 @@ namespace DodgeGame
             }
         }
 
+        // timer to run the game
         private void Timer_Tick(object sender, object e)
         {
             // move player
@@ -82,7 +84,6 @@ namespace DodgeGame
             //sync ui with board
             UpdateCanvas();
         }
-
 
         //Functions to sync the game with the ui START
 
@@ -266,8 +267,8 @@ namespace DodgeGame
 
         private void Hard_Checked(object sender, RoutedEventArgs e)
         {
-            enemyCount = 20;
-            enemySpeed = 9;
+            enemyCount = 15;
+            enemySpeed = 10;
             gameMode = "Hard";
         }
 
