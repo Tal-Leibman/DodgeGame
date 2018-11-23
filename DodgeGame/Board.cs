@@ -19,7 +19,7 @@ namespace DodgeGame
         //an array of enemies 
         public Enemy[] Enemies { get; set; }
 
-        Random _rnd = new Random();
+        private Random _rnd = new Random();
         // data members for the save function
         private int _saveEnemyCount;
         private Player _savePlayer;
