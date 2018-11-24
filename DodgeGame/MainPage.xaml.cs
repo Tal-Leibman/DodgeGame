@@ -32,18 +32,19 @@ namespace DodgeGame
     {
         // Declare board
         Board board;
+        //timer to run the game
         DispatcherTimer timer;
         // bool for keyboard direction true when pressed , false on release
         bool up, down, left, right;
         // win lose log
         int win = 0;
         int lose = 0;
+        //ammo counter
         int laserAmmo;
         // game settings default values 
         double enemySpeed = 9;
         int enemyCount = 10;
         string gameMode = "Normal";
-        enum Direction { Up, Down, Left, Right };
 
         public MainPage()
         {
@@ -52,10 +53,12 @@ namespace DodgeGame
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDownLaser;
+
             // timer for running the game
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             timer.Tick += Timer_Tick;
+
             // Dialog Message
             Welcome();
         }
@@ -298,7 +301,6 @@ namespace DodgeGame
             {
                 PauseResume();
             }
-
             board.Save();
         }
 

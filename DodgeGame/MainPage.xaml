@@ -8,12 +8,13 @@
     mc:Ignorable="d" Height="650" Width="1200" XYFocusKeyboardNavigation="Disabled" IsTabStop="True"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Name="MainGrid">
+    <Grid>
+
         <Grid.RowDefinitions >
             <RowDefinition Height="55" />
             <RowDefinition Height="600"/>
         </Grid.RowDefinitions>
-        
+
         <Canvas  Name="canvasBoard" Grid.Row="1" >
             <Canvas.Background>
                 <ImageBrush ImageSource="ms-appx:///Assets/background.png"></ImageBrush>
@@ -22,13 +23,12 @@
 
         <CommandBar Name="CommandBar" Grid.Row="0" VerticalAlignment="Stretch" OverflowButtonVisibility="Visible"
                     DefaultLabelPosition="Right" AllowFocusOnInteraction="False" XYFocusKeyboardNavigation="Disabled">
-            
+
             <CommandBar.Content>
                 <TextBlock Name="GameCounter" FontSize="15" FontWeight="Bold">
                 </TextBlock>
             </CommandBar.Content>
-            
-                
+
             <AppBarButton Name="NewGame" Icon ="Refresh" Click = "NewGame_Click" Label="New Game" >
             </AppBarButton>
             <AppBarButton Name="Pause" Icon="Pause" Click="Pause_Click"></AppBarButton>
@@ -40,8 +40,7 @@
                 <AppBarButton Name="About" Icon="Help" Click="About_Click" Label="Help"></AppBarButton>
                 <AppBarButton Name="Exit" Icon="Cancel" Click="Exit_Click" Label="Exit" ></AppBarButton>
             </CommandBar.SecondaryCommands>
-            
-        </CommandBar>
 
+        </CommandBar>
     </Grid>
 </Page>
