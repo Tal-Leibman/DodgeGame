@@ -404,6 +404,7 @@ namespace DodgeGame
                 laserAmmo--;
                 //add to canvas
                 canvasBoard.Children.Add(laser);
+                // wait 80 milliseconds then remove from canvas
                 await Task.Delay(80);
                 canvasBoard.Children.Remove(laser);
             }
