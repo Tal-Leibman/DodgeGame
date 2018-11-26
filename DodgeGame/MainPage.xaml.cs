@@ -45,6 +45,8 @@ namespace DodgeGame
         double enemySpeed = 9;
         int enemyCount = 10;
         string gameMode = "Normal";
+        Save save;
+
 
         public MainPage()
         {
@@ -80,8 +82,8 @@ namespace DodgeGame
         {
             // move player
             board.Player.Move(up, down, left, right, board);
-            //move enemies and check collisions 
-            board.MoveEnemies();
+            //move enemies and checks all collisions 
+            board.GameCycle();
             // sync game state to ui
             SyncGameState();
             //sync ui with board
@@ -289,7 +291,11 @@ namespace DodgeGame
             {
                 timer.Stop();
             }
-            board.Load();
+
+            board.AliveEnemies = save.AliveEnemies;
+            board.Player = save.Player;
+            board.Enemies = save.Enemies;
+            laserAmmo = save.LaserAmmo;
             canvasBoard.Children.Clear();
             AddToCanvas();
         }
@@ -301,7 +307,7 @@ namespace DodgeGame
             {
                 PauseResume();
             }
-            board.Save();
+            save = new Save(board.Player, board.Enemies, board.AliveEnemies, laserAmmo);
         }
 
         // Menu Functions click events END

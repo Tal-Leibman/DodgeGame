@@ -15,15 +15,12 @@ namespace DodgeGame
         // board Y dimension 
         public double BoardY { get; }
         // user controlled player on the board
-        public Player Player { get; }
+        public Player Player { get; set; }
         //an array of enemies 
         public Enemy[] Enemies { get; set; }
 
         private Random _rnd = new Random();
-        // data members for the save function
-        private int _saveEnemyCount;
-        private Player _savePlayer;
-        private Enemy[] _saveEnemies;
+
 
         /*
          * Builds a new game board with default values.
@@ -49,13 +46,6 @@ namespace DodgeGame
             Player.Y = RandomY(Player);
 
             Enemies = new Enemy[enemyCount];
-            //data members to save game
-            _savePlayer = new Player();
-            _saveEnemies = new Enemy[enemyCount];
-            for (int k = 0; k < _saveEnemies.Length; k++)
-            {
-                _saveEnemies[k] = new Enemy(0, 0, enemySpeed);
-            }
 
             bool IsPlaceEmpty = false;
             // set first enemy, check if place is empty
@@ -122,17 +112,12 @@ namespace DodgeGame
 
         //Functions for movement and collisions START
 
-        // moves all the enemies on the board and checks collisions 
-        public void MoveEnemies()
+        // moves all the enemies on the board
+        private void MoveEnemies()
         {
-            for (int i = 0; i < Enemies.Length && Player.IsAlive; i++)
+            for (int i = 0; i < Enemies.Length; i++)
             {
-                // move Enemies
                 Enemies[i].Move(Player.X, Player.Y);
-                // Check player alive
-                PlayerVsEnemy();
-                //check collisions
-                EnemyVsEnemy();
             }
         }
 
@@ -179,6 +164,13 @@ namespace DodgeGame
             }
         }
 
+        public void GameCycle()
+        {
+            MoveEnemies();
+            PlayerVsEnemy();
+            EnemyVsEnemy();
+        }
+
         //Functions for movement and collisions END
 
         //check if player\enemies are dead to end game
@@ -210,41 +202,5 @@ namespace DodgeGame
             }
             return true;
         }
-
-        //save game state
-        public void Save()
-        {
-            if (Player.IsAlive)
-            {
-                _saveEnemyCount = AliveEnemies;
-                _savePlayer.X = Player.X;
-                _savePlayer.Y = Player.Y;
-                _savePlayer.IsAlive = Player.IsAlive;
-                for (int i = 0; i < Enemies.Length; i++)
-                {
-                    _saveEnemies[i].X = Enemies[i].X;
-                    _saveEnemies[i].Y = Enemies[i].Y;
-                    _saveEnemies[i].IsAlive = Enemies[i].IsAlive;
-                    _saveEnemies[i].Circle.Fill = Enemies[i].Circle.Fill;
-                }
-            }
-        }
-
-        //load saved game state
-        public void Load()
-        {
-            AliveEnemies = _saveEnemyCount;
-            Player.X = _savePlayer.X;
-            Player.Y = _savePlayer.Y;
-            Player.IsAlive = _savePlayer.IsAlive;
-            for (int i = 0; i < Enemies.Length; i++)
-            {
-                Enemies[i].IsAlive = _saveEnemies[i].IsAlive;
-                Enemies[i].X = _saveEnemies[i].X;
-                Enemies[i].Y = _saveEnemies[i].Y;
-                Enemies[i].Circle.Fill = _saveEnemies[i].Circle.Fill;
-            }
-        }
-
     }
 }

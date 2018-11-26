@@ -45,7 +45,7 @@ namespace DodgeGame
 
         public bool IsAlive { get { return _isAlive; } set { _isAlive = value; } }
 
-        public double Radius { get { return _radius; } }
+        public double Radius { get { return _radius; } set { _radius = value; } }
 
         public virtual void Dead() { }
 
