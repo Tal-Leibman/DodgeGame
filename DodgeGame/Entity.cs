@@ -39,9 +39,9 @@ namespace DodgeGame
 
         public Ellipse Circle { get { return _circle; } }
 
-        public double X { get { return _x; } set { _x = value; } }
+        public double X { get { return _x; } }
 
-        public double Y { get { return _y; } set { _y = value; } }
+        public double Y { get { return _y; } }
 
         public bool IsAlive { get { return _isAlive; } }
 
@@ -50,6 +50,14 @@ namespace DodgeGame
         public virtual void Dead() { }
 
         public virtual void Revive() { }
+
+        // load data members to entity
+        public void LoadEntityData(double x, double y, double radius)
+        {
+            _x = x;
+            _y = y;
+            _radius = radius;
+        }
 
     }
 }

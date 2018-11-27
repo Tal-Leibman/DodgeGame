@@ -19,7 +19,6 @@ namespace DodgeGame
         private Uri _uriPlayerAlive;
         private ImageBrush _imageBrushPlayerAlive;
 
-
         //builds the player with default values
         public Player(double x = 0, double y = 0, double radius = 15, double speed = 12.5)
             : base(x, y, radius)

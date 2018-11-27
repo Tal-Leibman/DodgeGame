@@ -8,14 +8,17 @@ namespace DodgeGame
 {
     class Board
     {
+
+        private Player _player;
+        private Enemy[] _enemies;
         // board X dimension 
         public double BoardX { get; }
         // board Y dimension 
         public double BoardY { get; }
         // user controlled player on the board
-        public Player Player { get; set; }
+        public Player Player { get { return _player; } }
         //an array of enemies 
-        public Enemy[] Enemies { get; set; }
+        public Enemy[] Enemies { get { return _enemies; } }
 
         private Random _rnd = new Random();
 
@@ -38,46 +41,58 @@ namespace DodgeGame
             BoardX = boardSizeX;
             BoardY = boardSizeY;
 
-            Player = new Player();
+            _player = new Player();
             //place Player at random on the board with offset from the sides
-            Player.X = RandomX(Player);
-            Player.Y = RandomY(Player);
+            _player.LoadEntityData(RandomX(_player), RandomY(_player), _player.Radius);
 
-            Enemies = new Enemy[enemyCount];
+            _enemies = new Enemy[enemyCount];
 
             bool IsPlaceEmpty = false;
             // set first enemy, check if place is empty
             do
             {
-                Enemies[0] = new Enemy(0, 0, enemySpeed);
-                Enemies[0].X = RandomX(Enemies[0]);
-                Enemies[0].Y = RandomY(Enemies[0]);
-                IsPlaceEmpty = IsPlacement(Enemies[0], Player);
+                _enemies[0] = new Enemy(0, 0, enemySpeed);
+
+                _enemies[0].LoadEntityData(
+                    RandomX(_enemies[0]),
+                    RandomY(_enemies[0]),
+                    _enemies[0].Radius);
+
+                IsPlaceEmpty = IsPlacement(_enemies[0], _player);
 
             } while (!IsPlaceEmpty);
             //set rest of enemies check if place is empty for each one
             int i = 1;
             do
             {
-                Enemies[i] = new Enemy(0, 0, enemySpeed);
-                Enemies[i].X = RandomX(Enemies[i]);
-                Enemies[i].Y = RandomY(Enemies[i]);
+                _enemies[i] = new Enemy(0, 0, enemySpeed);
+
+                _enemies[i].LoadEntityData(
+                    RandomX(_enemies[i]), 
+                    RandomY(_enemies[i]), 
+                    _enemies[i].Radius);
 
                 IsPlaceEmpty =
-                    IsPlacement(Enemies[i], Player) &&
-                    IsPlacement(Enemies[i], Enemies[0]);
+                    IsPlacement(_enemies[i], _player) &&
+                    IsPlacement(_enemies[i], _enemies[0]);
                 if (IsPlaceEmpty)
                 {
                     for (int j = 1; j < i; j++)
                     {
-                        IsPlaceEmpty = IsPlacement(Enemies[i], Enemies[j]);
-                        if (!IsPlaceEmpty) { break; }
+                        IsPlaceEmpty = IsPlacement(_enemies[i], _enemies[j]);
+                        if (!IsPlaceEmpty)
+                        {
+                            break;
+                        }
                     }
                 }
-                if (IsPlaceEmpty) { i++; }
+
+                if (IsPlaceEmpty)
+                {
+                    i++;
+                }
 
             } while (i < enemyCount);
-
         }
 
         //Functions for Constructor START
@@ -137,13 +152,13 @@ namespace DodgeGame
         //check collisions between enemies 
         private void EnemyVsEnemy()
         {
-            for (int i = 0; i < Enemies.Length; i++)
+            for (int i = 0; i < _enemies.Length; i++)
             {
-                for (int j = 0; j < Enemies.Length; j++)
+                for (int j = 0; j < _enemies.Length; j++)
                 {
                     if (i != j)
                     {
-                        Collison(Enemies[i], Enemies[j]);
+                        Collison(_enemies[i], _enemies[j]);
                     }
                 }
             }
@@ -152,9 +167,9 @@ namespace DodgeGame
         //check collision between player and enemies
         private void PlayerVsEnemy()
         {
-            foreach (Enemy enemy in Enemies)
+            foreach (Enemy enemy in _enemies)
             {
-                Collison(Player, enemy);
+                Collison(_player, enemy);
             }
         }
 
@@ -170,7 +185,7 @@ namespace DodgeGame
         //check if player\enemies are dead to end game
         public string GameState()
         {
-            if (!Player.IsAlive)
+            if (!_player.IsAlive)
             {
                 return "GameLost";
             }
@@ -187,7 +202,7 @@ namespace DodgeGame
         // returns true if all enemies are dead
         private bool AreEnemiesDead()
         {
-            foreach (Enemy enemy in Enemies)
+            foreach (Enemy enemy in _enemies)
             {
                 if (enemy.IsAlive)
                 {

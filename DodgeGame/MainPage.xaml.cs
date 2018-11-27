@@ -302,8 +302,7 @@ namespace DodgeGame
                 {
                     board.Player.Revive();
                 }
-                board.Player.X = save.Player.X;
-                board.Player.Y = save.Player.Y;
+                board.Player.LoadEntityData(save.Player.X, save.Player.Y, save.Player.Radius);
 
                 for (int i = 0; i < board.Enemies.Length; i++)
                 {
@@ -312,8 +311,12 @@ namespace DodgeGame
                     {
                         board.Enemies[i].Revive();
                     }
-                    board.Enemies[i].X = save.Enemies[i].X;
-                    board.Enemies[i].Y = save.Enemies[i].Y;
+
+                    board.Enemies[i].LoadEntityData(
+                        save.Enemies[i].X,
+                        save.Enemies[i].Y,
+                        save.Enemies[i].Radius);
+
                 }
                 laserAmmo = save.LaserAmmo;
             }
