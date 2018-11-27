@@ -16,17 +16,22 @@ namespace DodgeGame
 
         public double Speed { get { return _speed; } }
 
+        //date members for enemy alive image
+        private BitmapImage _bitmapEnemyAlive;
+        private Uri _uriEnemyAlive;
+        private ImageBrush _imageBrushEnemyAlive;
+
         // builds enemy with default values
         public Enemy(int x = 0, int y = 0, double speed = 6, double raidus = 20)
             : base(x, y, raidus)
         {
             _speed = speed;
-            BitmapImage bitmap = new BitmapImage();
-            Uri uri = new Uri("ms-appx:///Assets/ufo.png");
-            bitmap.UriSource = uri;
-            ImageBrush enemy = new ImageBrush();
-            enemy.ImageSource = bitmap;
-            _circle.Fill = enemy;
+            _bitmapEnemyAlive= new BitmapImage();
+            _uriEnemyAlive = new Uri("ms-appx:///Assets/ufo.png");
+            _bitmapEnemyAlive.UriSource = _uriEnemyAlive;
+            _imageBrushEnemyAlive = new ImageBrush();
+            _imageBrushEnemyAlive.ImageSource = _bitmapEnemyAlive;
+            _circle.Fill = _imageBrushEnemyAlive;
             _circle.Stroke = new SolidColorBrush(Colors.Red);
             _circle.StrokeThickness = 2;
         }
@@ -41,6 +46,13 @@ namespace DodgeGame
             ImageBrush enemy = new ImageBrush();
             enemy.ImageSource = dead;
             _circle.Fill = enemy;
+        }
+        // revive enemy
+
+        public override void Revive()
+        {
+            _isAlive = true;
+            _circle.Fill = _imageBrushEnemyAlive;
         }
 
         //chase player in a straight line with fixed speed

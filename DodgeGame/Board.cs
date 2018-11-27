@@ -37,6 +37,7 @@ namespace DodgeGame
 
             BoardX = boardSizeX;
             BoardY = boardSizeY;
+
             Player = new Player();
             //place Player at random on the board with offset from the sides
             Player.X = RandomX(Player);

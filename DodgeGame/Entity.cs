@@ -49,5 +49,7 @@ namespace DodgeGame
 
         public virtual void Dead() { }
 
+        public virtual void Revive() { }
+
     }
 }

@@ -292,7 +292,8 @@ namespace DodgeGame
                 timer.Stop();
             }
 
-            board.Player = save.Player;
+            board.Player.X = save.Player.X;
+            board.Player.Y = save.Player.Y;
             board.Enemies = save.Enemies;
             laserAmmo = save.LaserAmmo;
             canvasBoard.Children.Clear();
@@ -306,6 +307,7 @@ namespace DodgeGame
             {
                 PauseResume();
             }
+            save = new Save(board.Player, board.Enemies, laserAmmo);
         }
 
         // Menu Functions click events END

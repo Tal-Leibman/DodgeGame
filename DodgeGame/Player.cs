@@ -13,21 +13,40 @@ namespace DodgeGame
     class Player : Entity
     {
         private const double RADIANS_45 = 45 * Math.PI / 180;
+
         private double _speed;
+        //date members for enemy alive image
+        private BitmapImage _bitmapPlayerAlive;
+        private Uri _uriPlayerAlive;
+        private ImageBrush _imageBrushPlayerAlive;
+
+
         //builds the player with default values
         public Player(double x = 0, double y = 0, double radius = 17, double speed = 12.5)
             : base(x, y, radius)
         {
             _speed = speed;
-            BitmapImage bitmap = new BitmapImage();
-            Uri uri = new Uri("ms-appx:///Assets/spaceShip.gif");
-            bitmap.UriSource = uri;
-            ImageBrush playerAlive = new ImageBrush();
-            playerAlive.ImageSource = bitmap;
-            _circle.Fill = playerAlive;
+            _bitmapPlayerAlive = new BitmapImage();
+            _uriPlayerAlive = new Uri("ms-appx:///Assets/spaceShip.gif");
+            _bitmapPlayerAlive.UriSource = _uriPlayerAlive;
+            _imageBrushPlayerAlive = new ImageBrush();
+            _imageBrushPlayerAlive.ImageSource = _bitmapPlayerAlive;
+            _circle.Fill = _imageBrushPlayerAlive;
             _circle.Stroke = new SolidColorBrush(Colors.Black);
             _circle.StrokeThickness = 3;
         }
+
+        public override void Revive()
+        {
+            _isAlive = true;
+            _circle.Fill = _imageBrushPlayerAlive;
+            _circle.Height = Radius * 2;
+            _circle.Width = Radius * 2;
+        }
+
+
+
+
 
         //kills the player and ends the game
         public override void Dead()
