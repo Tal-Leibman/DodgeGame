@@ -136,7 +136,7 @@ namespace DodgeGame
         }
 
         // Sync game state (win/lose) from board
-        public void SyncGameState()
+        private void SyncGameState()
         {
             switch (board.GameState())
             {
