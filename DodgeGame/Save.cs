@@ -16,6 +16,7 @@ namespace DodgeGame
         public Enemy[] Enemies { get { return _enemies; } }
         public int LaserAmmo { get { return _laserAmmo; } }
 
+        // save the state of a game
 
         public Save(Player player, Enemy[] enemies,int laserAmmo)
         {

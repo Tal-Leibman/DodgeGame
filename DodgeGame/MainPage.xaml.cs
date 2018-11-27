@@ -235,11 +235,11 @@ namespace DodgeGame
                 StatuesBar("Pause");
                 timer.Stop();
             }
-            else
+            else if (!timer.IsEnabled && board.GameState() != "GameWon" && board.GameState() != "GameLost")
             {
-                Pause.Icon = new SymbolIcon(Symbol.Pause);
-                StatuesBar("Play");
-                timer.Start();
+                     Pause.Icon = new SymbolIcon(Symbol.Pause);
+                     StatuesBar("Play");
+                     timer.Start();
             }
         }
 
@@ -302,7 +302,7 @@ namespace DodgeGame
             board.Player.Y = save.Player.Y;
 
             for (int i = 0; i < board.Enemies.Length; i++)
-            {   
+            {
 
                 if (save.Enemies[i].IsAlive && !board.Enemies[i].IsAlive)
                 {
