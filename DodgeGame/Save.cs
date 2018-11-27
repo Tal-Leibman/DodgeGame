@@ -18,7 +18,7 @@ namespace DodgeGame
 
         // save the state of a game
 
-        public Save(Player player, Enemy[] enemies,int laserAmmo)
+        public Save(Player player, Enemy[] enemies, int laserAmmo)
         {
             _player = new Player(player.X, player.Y, player.Radius);
             _enemies = new Enemy[enemies.Length];
@@ -27,11 +27,11 @@ namespace DodgeGame
 
             for (int i = 0; i < enemies.Length; i++)
             {
-                _enemies[i] = 
+                _enemies[i] =
                     new Enemy(
                     (int)enemies[i].X,
                     (int)enemies[i].Y,
-                    enemies[i].Speed, 
+                    enemies[i].Speed,
                     enemies[i].Radius);
 
                 if (!enemies[i].IsAlive)

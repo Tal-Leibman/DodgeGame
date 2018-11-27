@@ -95,28 +95,28 @@ namespace DodgeGame
                 //Right and Up
                 if (right && up && rangeRight && rangeUp && !down && !left)
                 {
-                    _x += _speed * Math.Sin(RADIANS_45);
+                    _x += _speed * Math.Cos(RADIANS_45);
                     _y -= _speed * Math.Sin(RADIANS_45);
                 }
 
                 //Right and Down
                 else if (right && down && rangeRight && rangeDown && !up && !left)
                 {
-                    _x += _speed * Math.Sin(RADIANS_45);
+                    _x += _speed * Math.Cos(RADIANS_45);
                     _y += _speed * Math.Sin(RADIANS_45);
                 }
 
                 //Left and Down
                 else if (left && down && rangeLeft && rangeDown && !up && !right)
                 {
-                    _x -= _speed * Math.Sin(RADIANS_45);
+                    _x -= _speed * Math.Cos(RADIANS_45);
                     _y += _speed * Math.Sin(RADIANS_45);
                 }
 
                 //Left and Up
                 else if (left && up && rangeLeft && rangeUp && !down && !right)
                 {
-                    _x -= _speed * Math.Sin(RADIANS_45);
+                    _x -= _speed * Math.Cos(RADIANS_45);
                     _y -= _speed * Math.Sin(RADIANS_45);
                 }
 

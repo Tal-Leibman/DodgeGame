@@ -43,9 +43,9 @@ namespace DodgeGame
 
         public double Y { get { return _y; } set { _y = value; } }
 
-        public bool IsAlive { get { return _isAlive; } set { _isAlive = value; } }
+        public bool IsAlive { get { return _isAlive; } }
 
-        public double Radius { get { return _radius; } set { _radius = value; } }
+        public double Radius { get { return _radius; } }
 
         public virtual void Dead() { }
 

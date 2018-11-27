@@ -63,6 +63,8 @@ namespace DodgeGame
 
             // Dialog Message
             Welcome();
+            StartNewGame();
+            PauseResume();
         }
 
         //keyboard event for LaserEvent()
@@ -349,7 +351,7 @@ namespace DodgeGame
 
                 Line laser = new Line
                 {
-                    Stroke = new SolidColorBrush(Colors.DarkRed),
+                    Stroke = new SolidColorBrush(Colors.Yellow),
                     StrokeThickness = 3,
                     X1 = board.Player.X,
                     Y1 = board.Player.Y,
