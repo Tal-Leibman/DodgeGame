@@ -292,7 +292,6 @@ namespace DodgeGame
                 timer.Stop();
             }
 
-            board.AliveEnemies = save.AliveEnemies;
             board.Player = save.Player;
             board.Enemies = save.Enemies;
             laserAmmo = save.LaserAmmo;
@@ -307,7 +306,6 @@ namespace DodgeGame
             {
                 PauseResume();
             }
-            save = new Save(board.Player, board.Enemies, board.AliveEnemies, laserAmmo);
         }
 
         // Menu Functions click events END
@@ -354,7 +352,6 @@ namespace DodgeGame
                             board.Enemies[i].X >= laser.X1 - board.Enemies[i].Radius)
                         {
                             board.Enemies[i].Dead();
-                            board.AliveEnemies--;
                         }
                     }
                 }
@@ -370,7 +367,6 @@ namespace DodgeGame
                             board.Enemies[i].X >= laser.X1 - board.Enemies[i].Radius)
                         {
                             board.Enemies[i].Dead();
-                            board.AliveEnemies--;
                         }
                     }
                 }
@@ -386,7 +382,6 @@ namespace DodgeGame
                             board.Enemies[i].Y >= laser.Y1 - board.Enemies[i].Radius)
                         {
                             board.Enemies[i].Dead();
-                            board.AliveEnemies--;
                         }
                     }
                 }
@@ -402,7 +397,6 @@ namespace DodgeGame
                             board.Enemies[i].Y >= laser.Y1 - board.Enemies[i].Radius)
                         {
                             board.Enemies[i].Dead();
-                            board.AliveEnemies--;
                         }
                     }
                 }

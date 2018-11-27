@@ -8,8 +8,6 @@ namespace DodgeGame
 {
     class Board
     {
-        //counter for live enemies on board
-        public int AliveEnemies { get; set; }
         // board X dimension 
         public double BoardX { get; }
         // board Y dimension 
@@ -39,7 +37,6 @@ namespace DodgeGame
 
             BoardX = boardSizeX;
             BoardY = boardSizeY;
-            AliveEnemies = enemyCount;
             Player = new Player();
             //place Player at random on the board with offset from the sides
             Player.X = RandomX(Player);
@@ -132,10 +129,6 @@ namespace DodgeGame
                 if (distance < entity1.Radius + entity2.Radius)
                 {
                     entity1.Dead();
-                    if (entity1 is Enemy)
-                    {
-                        AliveEnemies--;
-                    }
                 }
             }
         }
