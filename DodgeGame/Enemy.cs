@@ -48,7 +48,6 @@ namespace DodgeGame
             _circle.Fill = enemy;
         }
         // revive enemy
-
         public override void Revive()
         {
             _isAlive = true;
@@ -58,14 +57,14 @@ namespace DodgeGame
         //chase player in a straight line with fixed speed
         public void Move(double playerX, double playerY)
         {
-            double deltaX = Math.Abs(X - playerX);
-            double deltaY = Math.Abs(Y - playerY);
+            double deltaX = Math.Abs(_x - playerX);
+            double deltaY = Math.Abs(_y - playerY);
             double alpha = Math.Atan(deltaY / deltaX);
 
             if (_isAlive)
             {
                 // move by X
-                if (playerX < X)
+                if (playerX < _x)
                 {
                     _x -= _speed * Math.Cos(alpha);
                 }
@@ -75,11 +74,11 @@ namespace DodgeGame
                 }
 
                 // move by Y
-                if (playerY < Y)
+                if (playerY < _y)
                 {
                     _y -= _speed * Math.Sin(alpha);
                 }
-                else if (playerY > Y)
+                else if (playerY > _y)
                 {
                     _y += _speed * Math.Sin(alpha);
                 }
