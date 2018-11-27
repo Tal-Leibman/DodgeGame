@@ -36,6 +36,7 @@ namespace DodgeGame
             _circle.StrokeThickness = 3;
         }
 
+        // revives the player for loading a save state
         public override void Revive()
         {
             _isAlive = true;
@@ -43,10 +44,6 @@ namespace DodgeGame
             _circle.Height = Radius * 2;
             _circle.Width = Radius * 2;
         }
-
-
-
-
 
         //kills the player and ends the game
         public override void Dead()
