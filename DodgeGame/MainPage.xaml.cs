@@ -311,6 +311,10 @@ namespace DodgeGame
                     {
                         board.Enemies[i].Revive();
                     }
+                    else if (!save.Enemies[i].IsAlive && board.Enemies[i].IsAlive)
+                    {
+                        board.Enemies[i].Dead();
+                    }
 
                     board.Enemies[i].LoadEntityData(
                         save.Enemies[i].X,
