@@ -21,7 +21,7 @@ namespace DodgeGame
 
 
         //builds the player with default values
-        public Player(double x = 0, double y = 0, double radius = 17, double speed = 12.5)
+        public Player(double x = 0, double y = 0, double radius = 15, double speed = 12.5)
             : base(x, y, radius)
         {
             _speed = speed;
@@ -32,7 +32,7 @@ namespace DodgeGame
             _imageBrushPlayerAlive.ImageSource = _bitmapPlayerAlive;
             _circle.Fill = _imageBrushPlayerAlive;
             _circle.Stroke = new SolidColorBrush(Colors.Black);
-            _circle.StrokeThickness = 3;
+            _circle.StrokeThickness = 2;
         }
 
         // revives the player for loading a save state

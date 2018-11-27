@@ -215,7 +215,7 @@ namespace DodgeGame
             {
                 timer.Stop();
             }
-            laserAmmo = 5;
+            laserAmmo = 6;
             up = false;
             down = false;
             left = false;
