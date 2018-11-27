@@ -292,12 +292,26 @@ namespace DodgeGame
                 timer.Stop();
             }
 
+            // board.player back to save state
+            if (!board.Player.IsAlive)
+            {
+                board.Player.Revive();
+            }
+
             board.Player.X = save.Player.X;
             board.Player.Y = save.Player.Y;
-            board.Enemies = save.Enemies;
+
+            for (int i = 0; i < board.Enemies.Length; i++)
+            {   
+
+                if (save.Enemies[i].IsAlive && !board.Enemies[i].IsAlive)
+                {
+                    board.Enemies[i].Revive();
+                }
+                board.Enemies[i].X = save.Enemies[i].X;
+                board.Enemies[i].Y = save.Enemies[i].Y;
+            }
             laserAmmo = save.LaserAmmo;
-            canvasBoard.Children.Clear();
-            AddToCanvas();
         }
 
         //saves a game state and stops timer
