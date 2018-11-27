@@ -13,7 +13,6 @@ namespace DodgeGame
     class Player : Entity
     {
         private const double RADIANS_45 = 45 * Math.PI / 180;
-
         private double _speed;
         //date members for enemy alive image
         private BitmapImage _bitmapPlayerAlive;
@@ -119,6 +118,8 @@ namespace DodgeGame
                     _x -= _speed * Math.Cos(RADIANS_45);
                     _y -= _speed * Math.Sin(RADIANS_45);
                 }
+
+
 
             }
 

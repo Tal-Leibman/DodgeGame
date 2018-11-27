@@ -239,9 +239,9 @@ namespace DodgeGame
             }
             else if (!timer.IsEnabled && board.GameState() != "GameWon" && board.GameState() != "GameLost")
             {
-                     Pause.Icon = new SymbolIcon(Symbol.Pause);
-                     StatuesBar("Play");
-                     timer.Start();
+                Pause.Icon = new SymbolIcon(Symbol.Pause);
+                StatuesBar("Play");
+                timer.Start();
             }
         }
 
@@ -294,26 +294,29 @@ namespace DodgeGame
                 timer.Stop();
             }
 
-            // board.player back to save state
-            if (!board.Player.IsAlive)
+            //Check enemy arrays are same size
+            if (board.Enemies.Length == save.Enemies.Length)
             {
-                board.Player.Revive();
-            }
-
-            board.Player.X = save.Player.X;
-            board.Player.Y = save.Player.Y;
-
-            for (int i = 0; i < board.Enemies.Length; i++)
-            {
-
-                if (save.Enemies[i].IsAlive && !board.Enemies[i].IsAlive)
+                // board.player back to save state
+                if (!board.Player.IsAlive)
                 {
-                    board.Enemies[i].Revive();
+                    board.Player.Revive();
                 }
-                board.Enemies[i].X = save.Enemies[i].X;
-                board.Enemies[i].Y = save.Enemies[i].Y;
+                board.Player.X = save.Player.X;
+                board.Player.Y = save.Player.Y;
+
+                for (int i = 0; i < board.Enemies.Length; i++)
+                {
+
+                    if (save.Enemies[i].IsAlive && !board.Enemies[i].IsAlive)
+                    {
+                        board.Enemies[i].Revive();
+                    }
+                    board.Enemies[i].X = save.Enemies[i].X;
+                    board.Enemies[i].Y = save.Enemies[i].Y;
+                }
+                laserAmmo = save.LaserAmmo;
             }
-            laserAmmo = save.LaserAmmo;
         }
 
         //saves a game state and stops timer
@@ -333,13 +336,14 @@ namespace DodgeGame
         {
             string msg =
                 "You control the space ship with the keyboard direction keys.\n" +
-                "Use 'W' 'A' 'S' 'D' to fire a laser.\n" +
+                "Use 'W' 'A' 'S' 'D' to fire a laser in all 4 directions .\n" +
                 "The goal is to destroy all the UFO'S.\n" +
                 "Click Refresh or hit 'Shift' to start a new game.\n" +
                 "Hit 'Control' to pause/resume.\n" +
-                "The save/load button stops the game, click resume to keep playing.\n" +
+                "The save/load button stops the game, click resume to keep playing. " +
+                "Loading only works for the same difficulty setting the game was saved at.\n" +
                 "When 'Hard mode' is pressed the next game will have faster UFO's and more of them.\n" +
-                "Click Help button to see this message again";
+                "Click Help button to see this message again.";
             await new MessageDialog(msg, "Welcome to DodgeGame").ShowAsync();
         }
 
