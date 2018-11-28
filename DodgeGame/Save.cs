@@ -29,8 +29,8 @@ namespace DodgeGame
             {
                 _enemies[i] =
                     new Enemy(
-                    (int)enemies[i].X,
-                    (int)enemies[i].Y,
+                    enemies[i].X,
+                    enemies[i].Y,
                     enemies[i].Speed,
                     enemies[i].Radius);
 

@@ -14,6 +14,7 @@ namespace DodgeGame
     {
         private const double RADIANS_45 = 45 * Math.PI / 180;
         private double _speed;
+
         //date members for enemy alive image
         private BitmapImage _bitmapPlayerAlive;
         private Uri _uriPlayerAlive;
@@ -117,8 +118,6 @@ namespace DodgeGame
                     _x -= _speed * Math.Cos(RADIANS_45);
                     _y -= _speed * Math.Sin(RADIANS_45);
                 }
-
-
 
             }
 

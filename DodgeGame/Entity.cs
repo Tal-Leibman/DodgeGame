@@ -58,6 +58,5 @@ namespace DodgeGame
             _y = y;
             _radius = radius;
         }
-
     }
 }

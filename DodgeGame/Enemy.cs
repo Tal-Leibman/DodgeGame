@@ -22,7 +22,7 @@ namespace DodgeGame
         private ImageBrush _imageBrushEnemyAlive;
 
         // builds enemy with default values
-        public Enemy(int x = 0, int y = 0, double speed = 6, double raidus = 22)
+        public Enemy(double x = 0, double y = 0, double speed = 6, double raidus = 22)
             : base(x, y, raidus)
         {
             _speed = speed;
@@ -40,12 +40,12 @@ namespace DodgeGame
         public override void Dead()
         {
             _isAlive = false;
-            BitmapImage dead = new BitmapImage();
+            BitmapImage bitmapDead = new BitmapImage();
             Uri uriDead = new Uri("ms-appx:///Assets/bomb.png");
-            dead.UriSource = uriDead;
-            ImageBrush enemy = new ImageBrush();
-            enemy.ImageSource = dead;
-            _circle.Fill = enemy;
+            bitmapDead.UriSource = uriDead;
+            ImageBrush brushDead = new ImageBrush();
+            brushDead.ImageSource = bitmapDead;
+            _circle.Fill = brushDead;
         }
         // revive enemy
         public override void Revive()
@@ -57,12 +57,13 @@ namespace DodgeGame
         //chase player in a straight line with fixed speed
         public void Move(double playerX, double playerY)
         {
-            double deltaX = Math.Abs(_x - playerX);
-            double deltaY = Math.Abs(_y - playerY);
-            double alpha = Math.Atan(deltaY / deltaX);
 
             if (_isAlive)
             {
+                double deltaX = Math.Abs(_x - playerX);
+                double deltaY = Math.Abs(_y - playerY);
+                double alpha = Math.Atan(deltaY / deltaX);
+
                 // move by X
                 if (playerX < _x)
                 {

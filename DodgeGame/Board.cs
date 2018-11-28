@@ -42,7 +42,7 @@ namespace DodgeGame
             BoardY = boardSizeY;
 
             _player = new Player();
-            //place Player at random on the board with offset from the sides
+            //place Player at random on the board
             _player.LoadEntityData(RandomX(_player), RandomY(_player), _player.Radius);
 
             _enemies = new Enemy[enemyCount];
@@ -68,8 +68,8 @@ namespace DodgeGame
                 _enemies[i] = new Enemy(0, 0, enemySpeed);
 
                 _enemies[i].LoadEntityData(
-                    RandomX(_enemies[i]), 
-                    RandomY(_enemies[i]), 
+                    RandomX(_enemies[i]),
+                    RandomY(_enemies[i]),
                     _enemies[i].Radius);
 
                 IsPlaceEmpty =
