@@ -15,8 +15,6 @@ namespace DodgeGame
         public double BoardX { get; }
         // board Y dimension 
         public double BoardY { get; }
-
-
         // user controlled player on the board
         public Player Player { get { return _player; } }
         //an array of enemies 
