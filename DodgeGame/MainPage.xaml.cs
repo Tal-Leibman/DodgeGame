@@ -131,8 +131,8 @@ namespace DodgeGame
         // statues bar in command bar to show game information 
         private void StatuesBar(string gameState)
         {
-            GameCounter.Text = "Games won: " + win + "\tGame State:\t" + gameState
-                 + "\tAmmo: " + laserAmmo + "\nGames lost: " + lose + "\tDifficulty:\t" + gameMode;
+            GameCounter.Text = string.Format($"Games won: {win}\tGame state:\t{gameState}\tAmmo:{laserAmmo}" +
+                $"\nGames lost: {lose}\tDifficulty:\t{gameMode}");
         }
 
         // Sync game state (win/lose) from board
