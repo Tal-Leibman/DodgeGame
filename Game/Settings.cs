@@ -19,7 +19,9 @@ namespace Game
         [DataMember]
         public int Ammo { get; set; }
         [DataMember]
-        public double EnemyRadius { get; set; }
+        public double EnemyMaxRadius { get; set; }
+        [DataMember]
+        public double EnemyMinRadius { get; set; }
         [DataMember]
         public double HumanRadius { get; set; }
         [DataMember]
