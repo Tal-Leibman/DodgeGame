@@ -12,13 +12,23 @@ namespace Game
 {
     public class Enemy : Entity
     {
+        private static Random rnd = new Random();
+
+
+
         public Enemy(Settings settings)
         {
             Speed = settings.EnemySpeed;
-            Radius = settings.EnemyRadius;
+            Radius = rnd.Next((int)settings.EnemyMinRadius,(int)settings.EnemyMaxRadius);
             Circle = new Ellipse();
-            Circle.Stroke = new SolidColorBrush(Colors.Red);
-            Circle.StrokeThickness = 2;
+            byte[] arr = new byte[3];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = (byte)rnd.Next(0,256);
+            }
+            Color randomColor = Color.FromArgb(255,arr[0], arr[1], arr[2]);
+            Circle.Fill = new SolidColorBrush(randomColor);
+            Circle.StrokeThickness = 4;
             Circle.Height = Radius * 2;
             Circle.Width = Radius * 2;
         }

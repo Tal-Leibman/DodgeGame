@@ -23,8 +23,7 @@ namespace Game
             Speed = set.HumanSpeed;
             Radius = set.HumanRadius;
             Circle = new Ellipse();
-            Circle.Stroke = new SolidColorBrush(Colors.Blue);
-            Circle.StrokeThickness = 2;
+            Circle.Fill = new SolidColorBrush(Colors.Green);
             Circle.Height = Radius * 2;
             Circle.Width = Radius * 2;
         }
