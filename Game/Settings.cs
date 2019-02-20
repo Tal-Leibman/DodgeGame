@@ -13,7 +13,9 @@ namespace Game
         [DataMember]
         public int EnemyStartingCount { get; set; }
         [DataMember]
-        public double EnemySpeed { get; set; }
+        public double EnemyMaxSpeed { get; set; }
+        [DataMember]
+        public double EnemyMinSpeed { get; set; }
         [DataMember]
         public double HumanSpeed { get; set; }
         [DataMember]

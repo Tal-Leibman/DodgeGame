@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     RequestedTheme="Dark">
     <StackPanel Name="stackPanel">
@@ -20,6 +21,7 @@
                 Icon="Play"
                 Click="Button_newGame_Click"
                 ></AppBarButton>
+            
         </CommandBar>
         <Canvas 
             Name="canvas_game" 

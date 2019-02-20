@@ -16,10 +16,11 @@ namespace Game
 
 
 
-        public Enemy(Settings settings)
+        public Enemy(Settings se)
         {
-            Speed = settings.EnemySpeed;
-            Radius = rnd.Next((int)settings.EnemyMinRadius,(int)settings.EnemyMaxRadius);
+            double rndSpeed = rnd.NextDouble() * (se.EnemyMaxSpeed - se.EnemyMinSpeed) + se.EnemyMinSpeed;
+            Speed = rndSpeed;
+            Radius = rnd.Next((int)se.EnemyMinRadius,(int)se.EnemyMaxRadius);
             Circle = new Ellipse();
             byte[] arr = new byte[3];
             for (int i = 0; i < arr.Length; i++)

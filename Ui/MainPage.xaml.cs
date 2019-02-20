@@ -23,6 +23,8 @@ namespace Ui
 {
     public sealed partial class MainPage : Page
     {
+        public int counter;
+        public int maxScore;
         Settings settings;
         Engine engine;
         DispatcherTimer mainTimer;
@@ -35,9 +37,8 @@ namespace Ui
         public MainPage()
         {
             MaximizeWindowOnLoad();
-
+            
             this.InitializeComponent();
-
 
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
@@ -104,6 +105,8 @@ namespace Ui
             Entity tmp = engine.GameCycle(up, down, left, right);
             if (tmp != null)
             {
+                counter++;
+                commandBar.Content = string.Format("Score: {0} , High Score: {1}", counter, maxScore);
                 canvas_game.Children.Remove(tmp.Circle);
             }
             UpdateCanvas();
@@ -155,7 +158,8 @@ namespace Ui
                 EnemyMinRadius = 4,
                 HumanRadius = 10,
                 HumanSpeed = 12,
-                EnemySpeed = 10,
+                EnemyMaxSpeed = 10,
+                EnemyMinSpeed = 6,
                 PlacementBuffer = 4,
                 RespawnRate = 500
             };
@@ -163,6 +167,9 @@ namespace Ui
 
         private void Button_newGame_Click(object sender, RoutedEventArgs e)
         {
+            maxScore = Math.Max(counter,maxScore);
+            counter = 0;
+            commandBar.Content = string.Format("Score: {0} , High Score: {1}", counter,maxScore);
             canvas_game.Children.Clear();
             TestSettings();
             engine = new Engine(settings);
