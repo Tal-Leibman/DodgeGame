@@ -16,7 +16,6 @@ namespace Game
 
         public Enemy GameCycle(bool up, bool down, bool left, bool right)
         {
-
             Human.Move(up, down, left, right, Settings);
             PlayerVsEnemy();
             MoveEnemies();

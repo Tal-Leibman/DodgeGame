@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
@@ -56,6 +57,9 @@ namespace Ui
         {
             Enemy tmp = engine.AddEnemy();
             canvas_game.Children.Add(tmp.Circle);
+            Canvas.SetLeft(tmp.Circle, tmp.X - tmp.Radius);
+            Canvas.SetTop(tmp.Circle, tmp.Y - tmp.Radius);
+
         }
 
         private void CoreWindow_KeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
@@ -102,7 +106,7 @@ namespace Ui
 
         private void Timer_Tick(object sender, object e)
         {
-            Entity tmp = engine.GameCycle(up, down, left, right);
+            Enemy tmp = engine.GameCycle(up, down, left, right);
             if (tmp != null)
             {
                 counter++;
@@ -112,8 +116,8 @@ namespace Ui
             UpdateCanvas();
             if (engine.GameState == GameState.Lost || engine.GameState == GameState.Won)
             {
-                mainTimer.Stop();
                 newEnemyTimer.Stop();
+                mainTimer.Stop();
             }
         }
 
@@ -156,7 +160,7 @@ namespace Ui
                 EnemyStartingCount = 6,
                 EnemyMaxRadius = 35,
                 EnemyMinRadius = 4,
-                HumanRadius = 10,
+                HumanRadius = 12,
                 HumanSpeed = 12,
                 EnemyMaxSpeed = 10,
                 EnemyMinSpeed = 6,
