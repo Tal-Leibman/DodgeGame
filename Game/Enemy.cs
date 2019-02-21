@@ -16,11 +16,11 @@ namespace Game
 
 
 
-        public Enemy(Settings se)
+        public Enemy(Settings set)
         {
-            double rndSpeed = rnd.NextDouble() * (se.EnemyMaxSpeed - se.EnemyMinSpeed) + se.EnemyMinSpeed;
+            double rndSpeed = rnd.NextDouble() * (set.EnemyMaxSpeed - set.EnemyMinSpeed) + set.EnemyMinSpeed;
             Speed = rndSpeed;
-            Radius = rnd.Next((int)se.EnemyMinRadius,(int)se.EnemyMaxRadius);
+            Radius = rnd.Next((int)set.EnemyMinRadius,(int)set.EnemyMaxRadius);
             Circle = new Ellipse();
             byte[] arr = new byte[3];
             for (int i = 0; i < arr.Length; i++)
@@ -35,7 +35,7 @@ namespace Game
         }
 
         //chase player in a straight line with fixed speed
-        public void Move(double playerX, double playerY)
+        public void Move(double playerX, double playerY, Settings set)
         {
 
             double deltaX = Math.Abs(X - playerX);
@@ -61,7 +61,8 @@ namespace Game
             {
                 Y += Speed * Math.Sin(alpha);
             }
-
+            X = Math.Min(Math.Max(Radius, X), set.BoardWidth - Radius);
+            Y = Math.Min(Math.Max(Radius, Y), set.BoardHeight - Radius);
         }
 
     }

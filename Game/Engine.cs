@@ -141,7 +141,7 @@ namespace Game
         {
             foreach (Enemy enemy in Enemies)
             {
-                enemy.Move(Human.X, Human.Y);
+                enemy.Move(Human.X, Human.Y,Settings);
             }
         }
 
