@@ -44,9 +44,6 @@ namespace Ui
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
 
-
-            
-
             mainTimer = new DispatcherTimer();
             mainTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             mainTimer.Tick += Timer_Tick;
@@ -110,14 +107,15 @@ namespace Ui
             if (tmp != null)
             {
                 counter++;
-                commandBar.Content = string.Format("Score: {0} , High Score: {1}", counter, maxScore);
+                commandBar.Content = string.Format("Score: {0} , High Score: {1}", counter, settings.HighScore);
                 canvas_game.Children.Remove(tmp.Circle);
             }
             UpdateCanvas();
             if (engine.GameState == GameState.Lost || engine.GameState == GameState.Won)
-            {
+            {   
                 newEnemyTimer.Stop();
                 mainTimer.Stop();
+                settings.HighScore = Math.Max(counter, settings.HighScore);
             }
         }
 
@@ -149,12 +147,22 @@ namespace Ui
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
-        private void TestSettings()
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Settings newSet = e.Parameter as Settings;
+            if (newSet != null)
+            {
+                settings = newSet;
+            }
+        }
+
+
+
+        private void DefaultSettings()
         {
             double height = stackPanel.ActualHeight - commandBar.ActualHeight;
             settings = new Settings
             {
-                Ammo = 0,
                 BoardHeight = height,
                 BoardWidth = canvas_game.ActualWidth,
                 EnemyStartingCount = 6,
@@ -162,9 +170,9 @@ namespace Ui
                 EnemyMinRadius = 4,
                 HumanRadius = 12,
                 HumanSpeed = 12,
+                HumanColor=Colors.Green,
                 EnemyMaxSpeed = 10,
                 EnemyMinSpeed = 6,
-                PlacementBuffer = 4,
                 RespawnRate = 500
             };
         }
@@ -175,7 +183,16 @@ namespace Ui
             counter = 0;
             commandBar.Content = string.Format("Score: {0} , High Score: {1}", counter,maxScore);
             canvas_game.Children.Clear();
-            TestSettings();
+            if (settings == null)
+            {
+                DefaultSettings();
+            }
+            else
+            {
+                double height = stackPanel.ActualHeight - commandBar.ActualHeight;
+                settings.BoardHeight = height;
+                settings.BoardWidth = canvas_game.ActualWidth;
+            }
             engine = new Engine(settings);
             foreach (Enemy item in engine.Enemies)
             {
@@ -189,7 +206,10 @@ namespace Ui
             mainTimer.Start();
         }
 
-
+        private void Button_settings_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(settingsPage),settings);
+        }
     }
 }
 
