@@ -24,16 +24,11 @@ namespace Ui
 {
     public sealed partial class MainPage : Page
     {
-        public int counter;
-        public int maxScore;
         Settings settings;
         Engine engine;
         DispatcherTimer mainTimer;
         DispatcherTimer newEnemyTimer;
-        bool up;
-        bool down;
-        bool left;
-        bool right;
+        PlayerInput playerInput;
 
         public MainPage()
         {
@@ -45,7 +40,7 @@ namespace Ui
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
 
             mainTimer = new DispatcherTimer();
-            mainTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            mainTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
             mainTimer.Tick += Timer_Tick;
 
         }
@@ -64,16 +59,16 @@ namespace Ui
             switch (args.VirtualKey)
             {
                 case VirtualKey.Up:
-                    up = false;
+                    playerInput.Up = false;
                     break;
                 case VirtualKey.Down:
-                    down = false;
+                    playerInput.Down = false;
                     break;
                 case VirtualKey.Left:
-                    left = false;
+                    playerInput.Left = false;
                     break;
                 case VirtualKey.Right:
-                    right = false;
+                    playerInput.Right = false;
                     break;
                 default: break;
             }
@@ -84,16 +79,16 @@ namespace Ui
             switch (args.VirtualKey)
             {
                 case VirtualKey.Up:
-                    up = true;
+                    playerInput.Up=true;
                     break;
                 case VirtualKey.Down:
-                    down = true;
+                    playerInput.Down = true;
                     break;
                 case VirtualKey.Left:
-                    left = true;
+                    playerInput.Left = true;
                     break;
                 case VirtualKey.Right:
-                    right = true;
+                    playerInput.Right = true;
                     break;
                 default: break;
             }
@@ -103,34 +98,59 @@ namespace Ui
 
         private void Timer_Tick(object sender, object e)
         {
-            Enemy tmp = engine.GameCycle(up, down, left, right);
-            if (tmp != null)
+            GameState state= engine.GameCycle(playerInput);
+            switch (state)
             {
-                counter++;
-                commandBar.Content = string.Format("Score: {0} , High Score: {1}", counter, settings.HighScore);
-                canvas_game.Children.Remove(tmp.Circle);
-            }
-            UpdateCanvas();
-            if (engine.GameState == GameState.Lost || engine.GameState == GameState.Won)
-            {   
-                newEnemyTimer.Stop();
-                mainTimer.Stop();
-                settings.HighScore = Math.Max(counter, settings.HighScore);
+                case GameState.EnemiesAreSame:
+                    MoveObjectsOnCanvas();
+                    break;
+                case GameState.EnemiesChanged:
+                    ReDrawCanvas();
+                    break;
+                case GameState.Lost:
+                    ReDrawCanvas();
+                    GameOver(GameState.Lost);
+                    break;
+                case GameState.Won:
+                    ReDrawCanvas();
+                    GameOver(GameState.Won);
+                    break;
+                default: break;
             }
         }
 
-        private void UpdateCanvas()
+        private void ReDrawCanvas()
         {
-            foreach (Enemy item in engine.Enemies)
+            canvas_game.Children.Clear();
+            canvas_game.Children.Add(engine.Human.Circle);
+            Canvas.SetLeft(engine.Human.Circle, engine.Human.X - engine.Human.Radius);
+            Canvas.SetTop(engine.Human.Circle, engine.Human.Y - engine.Human.Radius);
+            engine.Enemies.ForEach(e => 
             {
-                Canvas.SetLeft(item.Circle, item.X - item.Radius);
-                Canvas.SetTop(item.Circle, item.Y - item.Radius);
-            }
+                canvas_game.Children.Add(e.Circle);
+                Canvas.SetLeft(e.Circle, e.X - e.Radius);
+                Canvas.SetTop(e.Circle, e.Y - e.Radius);
+            });
+        }
+
+
+        private void GameOver(GameState state)
+        {
+            newEnemyTimer.Stop();
+            mainTimer.Stop();
+            settings.HighScore = Math.Max(settings.HighScore, engine.Score);
+
+        }
+
+        private void MoveObjectsOnCanvas()
+        {
+            engine.Enemies.ForEach(e => {
+                Canvas.SetLeft(e.Circle, e.X - e.Radius);
+                Canvas.SetTop(e.Circle, e.Y - e.Radius);
+            });
             Canvas.SetLeft(engine.Human.Circle, engine.Human.X - engine.Human.Radius);
             Canvas.SetTop(engine.Human.Circle, engine.Human.Y - engine.Human.Radius);
         }
-
-
 
         private void MaximizeWindowOnLoad()
         {
@@ -179,9 +199,6 @@ namespace Ui
 
         private void Button_newGame_Click(object sender, RoutedEventArgs e)
         {
-            maxScore = Math.Max(counter,maxScore);
-            counter = 0;
-            commandBar.Content = string.Format("Score: {0} , High Score: {1}", counter,maxScore);
             canvas_game.Children.Clear();
             if (settings == null)
             {
@@ -193,12 +210,10 @@ namespace Ui
                 settings.BoardHeight = height;
                 settings.BoardWidth = canvas_game.ActualWidth;
             }
+            playerInput = new PlayerInput();
             engine = new Engine(settings);
-            foreach (Enemy item in engine.Enemies)
-            {
-                canvas_game.Children.Add(item.Circle);
-            }
-            canvas_game.Children.Add(engine.Human.Circle);
+            ReDrawCanvas();
+
             newEnemyTimer = new DispatcherTimer();
             newEnemyTimer.Interval = new TimeSpan(0,0,0,0,settings.RespawnRate);
             newEnemyTimer.Tick += NewEnemyTimer_Tick;
