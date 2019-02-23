@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public enum GameState {Live,Pause,Stop,Won,Lost }
+    public enum GameState {On,EnemiesAreSame , EnemiesChanged , Won , Lost }
 }
