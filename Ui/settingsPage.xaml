@@ -1,0 +1,93 @@
+﻿<Page x:Class="Ui.settingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:Ui"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      RequestedTheme="Dark">
+
+    <Grid>
+        <StackPanel Orientation="Vertical">
+
+            <CommandBar IsDynamicOverflowEnabled="False"
+                        OverflowButtonVisibility="Collapsed"
+                        IsOpen="False">
+                <AppBarSeparator></AppBarSeparator>
+
+                <AppBarButton Name="button_clear"
+                              Click="Button_clear_Click"
+                              Content="Clear fields"></AppBarButton>
+
+                <AppBarSeparator></AppBarSeparator>
+
+                <AppBarButton Name="button_save"
+                              Content="Save settings"
+                              Click="Button_save_Click"></AppBarButton>
+
+                <AppBarSeparator></AppBarSeparator>
+
+                <AppBarButton Name="button_load"
+                              Content="Load settings"
+                              Click="Button_load_Click"></AppBarButton>
+
+                <AppBarSeparator></AppBarSeparator>
+                <AppBarButton Name="button_back"
+                              Click="Button_back_Click"
+                              Content="Game"></AppBarButton>
+                <AppBarSeparator></AppBarSeparator>
+            </CommandBar>
+
+            <StackPanel Orientation="Horizontal">
+
+                <StackPanel Spacing="10"
+                            Margin="10">
+
+                    <ComboBox Name="enemyStartCount"
+                              Header="Starting enemies count"
+                              ItemsSource="{x:Bind zeroTo20}"></ComboBox>
+
+                    <ComboBox Name="maxRadiusEnemy"
+                              Header="Enemy max radius"
+                              ItemsSource="{x:Bind twoTo50}"></ComboBox>
+
+                    <ComboBox Name="minRadiusEnemy"
+                              Header="Enemy min radius"
+                              ItemsSource="{x:Bind twoTo50}"></ComboBox>
+
+                    <ComboBox Name="maxSpeedEnemy"
+                              Header="Enemy max speed"
+                              ItemsSource="{x:Bind twoTo20}"></ComboBox>
+
+                    <ComboBox Name="minSpeedEnemy"
+                              Header="Enemy min speed"
+                              ItemsSource="{x:Bind twoTo20}"></ComboBox>
+
+                    <ComboBox Name="playerRadius"
+                              Header="Player radius"
+                              ItemsSource="{x:Bind twoTo50}"></ComboBox>
+
+                    <ComboBox Name="playerSpeed"
+                              Header="Player speed"
+                              ItemsSource="{x:Bind twoTo20}"></ComboBox>
+                    
+                    <ComboBox Name="respawnRate"
+                              Header="Re spawn rate in millisecond"
+                              ItemsSource="{x:Bind miliSec}"></ComboBox>
+                    
+                </StackPanel>
+
+                <ColorPicker Name="playerColor"
+                             IsHexInputVisible="False"
+                             IsColorSliderVisible="False"
+                             IsAlphaSliderVisible="False"
+                             IsColorChannelTextInputVisible="False"
+                             ColorSpectrumShape="Ring"
+                             ColorChanged="PlayerColor_ColorChanged" />
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</Page>

@@ -14,6 +14,7 @@ namespace Game
         public Settings Settings { get; set; }
         public GameState GameState { get; private set; }
 
+
         public Enemy GameCycle(bool up, bool down, bool left, bool right)
         {
             Human.Move(up, down, left, right, Settings);
@@ -85,7 +86,7 @@ namespace Game
             double deltaX = e1.X - e2.X;
             double deltaY = e1.Y - e2.Y;
             double distance = Math.Sqrt(Math.Pow(deltaX, 2) + Math.Pow(deltaY, 2));
-            return distance > e1.Radius * Settings.PlacementBuffer;
+            return distance > e1.Radius * Settings.PLACEMENT_BUFFER;
         }
 
         private int GetXInRange(Entity e)
