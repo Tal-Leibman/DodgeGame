@@ -1,4 +1,4 @@
-﻿<Page x:Class="Ui.settingsPage"
+﻿<Page x:Class="Ui.SettingsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:Ui"
@@ -46,36 +46,35 @@
 
                     <ComboBox Name="enemyStartCount"
                               Header="Starting enemies count"
-                              ItemsSource="{x:Bind zeroTo20}"></ComboBox>
+                              ItemsSource="{x:Bind _zeroTo20}"></ComboBox>
 
                     <ComboBox Name="maxRadiusEnemy"
                               Header="Enemy max radius"
-                              ItemsSource="{x:Bind twoTo50}"></ComboBox>
+                              ItemsSource="{x:Bind _twoTo50}"></ComboBox>
 
                     <ComboBox Name="minRadiusEnemy"
                               Header="Enemy min radius"
-                              ItemsSource="{x:Bind twoTo50}"></ComboBox>
+                              ItemsSource="{x:Bind _twoTo50}"></ComboBox>
 
                     <ComboBox Name="maxSpeedEnemy"
                               Header="Enemy max speed"
-                              ItemsSource="{x:Bind twoTo20}"></ComboBox>
+                              ItemsSource="{x:Bind _twoTo20}"></ComboBox>
 
                     <ComboBox Name="minSpeedEnemy"
                               Header="Enemy min speed"
-                              ItemsSource="{x:Bind twoTo20}"></ComboBox>
+                              ItemsSource="{x:Bind _twoTo20}"></ComboBox>
 
                     <ComboBox Name="playerRadius"
                               Header="Player radius"
-                              ItemsSource="{x:Bind twoTo50}"></ComboBox>
+                              ItemsSource="{x:Bind _twoTo50}"></ComboBox>
 
                     <ComboBox Name="playerSpeed"
                               Header="Player speed"
-                              ItemsSource="{x:Bind twoTo20}"></ComboBox>
-                    
+                              ItemsSource="{x:Bind _twoTo20}"></ComboBox>
+
                     <ComboBox Name="respawnRate"
                               Header="Re spawn rate in millisecond"
-                              ItemsSource="{x:Bind miliSec}"></ComboBox>
-                    
+                              ItemsSource="{x:Bind _miliSec}"></ComboBox>
                 </StackPanel>
 
                 <ColorPicker Name="playerColor"
@@ -86,8 +85,6 @@
                              ColorSpectrumShape="Ring"
                              ColorChanged="PlayerColor_ColorChanged" />
             </StackPanel>
-
         </StackPanel>
-
     </Grid>
 </Page>

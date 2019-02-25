@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Game
+﻿namespace Game
 {
-    public struct PlayerInput
+    public class PlayerInput
     {
         public bool Up { get; set; }
         public bool Down { get; set; }
