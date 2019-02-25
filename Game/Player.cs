@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
 
 namespace Game
@@ -15,7 +9,7 @@ namespace Game
     {
         private const double RADIANS_45 = 45 * Math.PI / 180;
 
-        public bool IsAlive { get;  set; }
+        public bool IsAlive { get; set; }
 
         public Player(Settings set)
         {
@@ -30,10 +24,8 @@ namespace Game
             };
         }
 
-
-        public void Move(PlayerInput input, Settings set)
+        public void Move(PlayerInput input,Settings set)
         {
-
             // 1 direction only
             if ((input.Left ^ input.Right) ^ (input.Up ^ input.Down))
             {
@@ -83,14 +75,8 @@ namespace Game
                 Y -= Speed * Math.Sin(RADIANS_45);
             }
             //check new position is not outside of board
-            X = Math.Min(Math.Max(Radius, X), set.BoardWidth - Radius);
-            Y = Math.Min(Math.Max(Radius, Y), set.BoardHeight - Radius);
-
+            X = Math.Min(Math.Max(Radius,X),set.BoardWidth - Radius);
+            Y = Math.Min(Math.Max(Radius,Y),set.BoardHeight - Radius);
         }
-
-
-
-
-
     }
 }

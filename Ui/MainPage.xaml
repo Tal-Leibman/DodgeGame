@@ -17,17 +17,15 @@
         <CommandBar Name="commandBar"
                     IsOpen="False"
                     OverflowButtonVisibility="Collapsed">
-            
+
             <AppBarButton Name="button_newGame"
                           Icon="Play"
                           Click="Button_newGame_Click"></AppBarButton>
             <AppBarButton Name="button_settings"
                           Icon="Setting"
                           Click="Button_settings_Click"></AppBarButton>
-
         </CommandBar>
 
-            <Canvas Name="canvas_game" />
-
+        <Canvas Name="canvas_game" />
     </StackPanel>
 </Page>
