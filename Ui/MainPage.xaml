@@ -3,6 +3,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:Ui"
+      xmlns:g="using:Game"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
@@ -11,13 +12,22 @@
       XYFocusKeyboardNavigation="Disabled"
       IsTabStop="True"
       RequestedTheme="Dark">
+
     <StackPanel Name="stackPanel"
                 Margin="10">
 
         <CommandBar Name="commandBar"
                     IsOpen="False"
                     OverflowButtonVisibility="Collapsed">
-
+            <CommandBar.ContentTemplate>
+                <DataTemplate x:DataType="g:Settings"
+                              x:DefaultBindMode="TwoWay">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Score:"></TextBlock>
+                        <TextBlock Text="{x:Bind  CurrentScore}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </CommandBar.ContentTemplate>
             <AppBarButton Name="button_newGame"
                           Icon="Play"
                           Click="Button_newGame_Click"></AppBarButton>
