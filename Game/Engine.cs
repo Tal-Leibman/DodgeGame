@@ -6,52 +6,13 @@ namespace Game
 {
     public class Engine
     {
-        public List<Enemy> Enemies { get; private set; }
-        public Player Human { get; private set; }
-        public Settings Settings { get; set; }
-        public GameState GameState { get; private set; }
-        public int Score { get; private set; }
-
-        public GameState GameCycle(PlayerInput input)
-        {
-            HandleMovement(input);
-            Human.IsAlive = IsPlayerAlive();
-            List<Enemy> survivors = EnemyVsEnemy();
-            return CheckGameState(survivors);
-        }
-
-        private GameState CheckGameState(List<Enemy> survivors)
-        {
-            if (!Human.IsAlive)
-            {
-                return GameState.Lost;
-            }
-            if (Enemies.Count == 0)
-            {
-                return GameState.Won;
-            }
-            if (survivors == Enemies)
-            {
-                return GameState.EnemiesAreSame;
-            }
-            else
-            {
-                Enemies = survivors;
-                return GameState.EnemiesChanged;
-            }
-        }
-
-        private void HandleMovement(PlayerInput input)
-        {
-            Human.Move(input,Settings);
-            Enemies.ForEach(x => x.Move(Human.X,Human.Y,Settings));
-        }
+        private static Random s_rnd = new Random();
 
         public Engine(Settings settings)
         {
             Settings = settings;
             Enemies = new List<Enemy>();
-            GameState = GameState.On;
+            State = GameState.On;
             Human = new Player(Settings);
             Human.PlaceOnBoard(GetXInRange(Human),GetYInRange(Human));
 
@@ -60,6 +21,12 @@ namespace Game
                 AddEnemy();
             }
         }
+
+        public int CurrentScore { get; set; }
+        public List<Enemy> Enemies { get; private set; }
+        public Player Human { get; private set; }
+        public Settings Settings { get; set; }
+        public GameState State { get; private set; }
 
         public Enemy AddEnemy()
         {
@@ -88,12 +55,41 @@ namespace Game
             }
         }
 
-        private bool IsPlaceEmpty(Entity e1,Entity e2)
+        public GameState GameCycle(PlayerInput input)
         {
-            double deltaX = e1.X - e2.X;
-            double deltaY = e1.Y - e2.Y;
+            HandleMovement(input);
+            Human.IsAlive = IsPlayerAlive();
+            List<Enemy> survivors = SurvivingEnemies();
+            Settings.CurrentScore += Enemies.Count - survivors.Count;
+            Enemies = survivors;
+            State = CheckGameState();
+            if (State != GameState.On)
+            {
+                Settings.HighScore = Math.Max(Settings.HighScore,Settings.CurrentScore);
+            }
+            return State;
+        }
+
+        private GameState CheckGameState()
+        {
+            if (!Human.IsAlive)
+            {
+                return GameState.Lost;
+            }
+            if (Enemies.Count == 0)
+            {
+                return GameState.Won;
+            }
+            return GameState.On;
+        }
+
+        private bool Collison(Entity entity1,Entity entity2)
+        {
+            if (entity1 == entity2) { return false; }
+            double deltaX = entity1.X - entity2.X;
+            double deltaY = entity1.Y - entity2.Y;
             double distance = Math.Sqrt(Math.Pow(deltaX,2) + Math.Pow(deltaY,2));
-            return distance > e1.Radius * Settings.PLACEMENT_BUFFER;
+            return distance <= entity1.Radius + entity2.Radius;
         }
 
         private int GetXInRange(Entity e)
@@ -108,7 +104,27 @@ namespace Game
             return s_rnd.Next((int)e.Radius,range);
         }
 
-        private List<Enemy> EnemyVsEnemy()
+        private void HandleMovement(PlayerInput input)
+        {
+            Human.Move(input,Settings);
+            Enemies.ForEach(x => x.Move(Human.X,Human.Y,Settings));
+        }
+
+        private bool IsPlaceEmpty(Entity e1,Entity e2)
+        {
+            double deltaX = e1.X - e2.X;
+            double deltaY = e1.Y - e2.Y;
+            double distance = Math.Sqrt(Math.Pow(deltaX,2) + Math.Pow(deltaY,2));
+            return distance > e1.Radius * Settings.PLACEMENT_BUFFER;
+        }
+
+        private bool IsPlayerAlive()
+        {
+            if (Enemies.Any(e => Collison(e,Human))) { return false; }
+            return true;
+        }
+
+        private List<Enemy> SurvivingEnemies()
         {
             List<Enemy> survivors = new List<Enemy>();
             foreach (Enemy enemy in Enemies)
@@ -124,26 +140,8 @@ namespace Game
             }
             else
             {
-                Score += Enemies.Count - survivors.Count;
                 return survivors;
             }
         }
-
-        private bool IsPlayerAlive()
-        {
-            if (Enemies.Any(e => Collison(e,Human))) { return false; }
-            return true;
-        }
-
-        private bool Collison(Entity entity1,Entity entity2)
-        {
-            if (entity1 == entity2) { return false; }
-            double deltaX = entity1.X - entity2.X;
-            double deltaY = entity1.Y - entity2.Y;
-            double distance = Math.Sqrt(Math.Pow(deltaX,2) + Math.Pow(deltaY,2));
-            return distance <= entity1.Radius + entity2.Radius;
-        }
-
-        private static Random s_rnd = new Random();
     }
 }
