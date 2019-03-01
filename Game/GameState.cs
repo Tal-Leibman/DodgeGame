@@ -1,4 +1,4 @@
 ﻿namespace Game
 {
-    public enum GameState { On, EnemiesAreSame, EnemiesChanged, Won, Lost }
+    public enum GameState { On, Won, Lost }
 }
