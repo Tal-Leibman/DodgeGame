@@ -14,6 +14,7 @@ namespace Game
                 if (_init == null)
                 {
                     _init = new Settings();
+                    LoadDefault();
                 }
                 return _init;
             }
@@ -23,6 +24,19 @@ namespace Game
 
         private Settings()
         {
+        }
+
+        private static void LoadDefault()
+        {
+            _init.EnemyStartingCount = 3;
+            _init.EnemyMaxRadius = 40;
+            _init.EnemyMinRadius = 2;
+            _init.HumanRadius = 8;
+            _init.HumanSpeed = 16;
+            _init.HumanColor = Colors.Green;
+            _init.EnemyMaxSpeed = 12;
+            _init.EnemyMinSpeed = 6;
+            _init.RespawnRate = 500;
         }
 
         public const int PLACEMENT_BUFFER = 4;

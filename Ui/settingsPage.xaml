@@ -16,15 +16,9 @@
                         IsOpen="False">
 
                 <AppBarSeparator></AppBarSeparator>
-
-                <AppBarButton Name="button_save"
-                              Content="Save settings"
-                              Click="Button_save_Click"></AppBarButton>
-
-                <AppBarSeparator></AppBarSeparator>
                 <AppBarButton Name="button_back"
                               Click="Button_back_Click"
-                              Content="Game"></AppBarButton>
+                              Content="Back to game"></AppBarButton>
                 <AppBarSeparator></AppBarSeparator>
             </CommandBar>
 

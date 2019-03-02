@@ -39,22 +39,12 @@ namespace Ui
         private void Button_newGame_Click(object sender,RoutedEventArgs e)
         {
             canvas_game.Children.Clear();
-            if (_settings == null)
-            {
-                DefaultSettings();
-            }
-            else
-            {
-                double height = stackPanel.ActualHeight - commandBar.ActualHeight;
-                _settings.BoardHeight = height;
-                _settings.BoardWidth = canvas_game.ActualWidth;
-            }
+            _settings = Settings.Init;
+            _settings.BoardHeight = stackPanel.ActualHeight - commandBar.ActualHeight;
+            _settings.BoardWidth = canvas_game.ActualWidth;
             _playerInput = new PlayerInput();
-            if (_settings == null)
-            { _settings = DefaultSettings(); }
             _engine = new Engine(_settings);
             ReDrawCanvas(_engine.Human,_engine.Enemies);
-
             _newEnemyTimer = new DispatcherTimer
             {
                 Interval = new TimeSpan(0,0,0,0,_settings.RespawnRate)
@@ -117,24 +107,6 @@ namespace Ui
             }
         }
 
-        private Settings DefaultSettings()
-        {
-            double height = stackPanel.ActualHeight - commandBar.ActualHeight;
-            _settings = Settings.Init;
-            _settings.BoardHeight = height;
-            _settings.BoardWidth = canvas_game.ActualWidth;
-            _settings.EnemyStartingCount = 3;
-            _settings.EnemyMaxRadius = 40;
-            _settings.EnemyMinRadius = 2;
-            _settings.HumanRadius = 8;
-            _settings.HumanSpeed = 16;
-            _settings.HumanColor = Colors.Green;
-            _settings.EnemyMaxSpeed = 12;
-            _settings.EnemyMinSpeed = 6;
-            _settings.RespawnRate = 500;
-            return _settings;
-        }
-
         private void DrawEntityOnCanvas(Entity e)
         {
             canvas_game.Children.Add(e.Circle);
@@ -189,10 +161,8 @@ namespace Ui
         private void Timer_Tick(object sender,object e)
         {
             GameState state = _engine.GameCycle(_playerInput);
-            _settings = _engine.Settings;
             ReDrawCanvas(_engine.Human,_engine.Enemies);
             ShowScore();
-
             switch (state)
             {
                 case GameState.Lost:

@@ -38,7 +38,16 @@ namespace Ui
 
         private void Button_back_Click(object sender,RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage),_settings);
+            _settings.EnemyMaxRadius = (int)maxRadiusEnemy.SelectedItem;
+            _settings.EnemyMaxSpeed = (int)maxSpeedEnemy.SelectedItem;
+            _settings.EnemyMinRadius = (int)minRadiusEnemy.SelectedItem;
+            _settings.EnemyMinSpeed = (int)minSpeedEnemy.SelectedItem;
+            _settings.HumanRadius = (int)playerRadius.SelectedItem;
+            _settings.HumanSpeed = (int)playerSpeed.SelectedItem;
+            _settings.HumanColor = playerColor.Color;
+            _settings.EnemyStartingCount = (int)enemyStartCount.SelectedItem;
+            _settings.RespawnRate = (int)respawnRate.SelectedItem;
+            Frame.Navigate(typeof(MainPage));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -53,19 +62,6 @@ namespace Ui
             playerSpeed.SelectedItem = (int)_settings.HumanSpeed;
             respawnRate.SelectedItem = _settings.RespawnRate;
             playerColor.Color = _settings.HumanColor;
-        }
-
-        private void Button_save_Click(object sender,RoutedEventArgs e)
-        {
-            _settings.EnemyMaxRadius = (int)maxRadiusEnemy.SelectedItem;
-            _settings.EnemyMaxSpeed = (int)maxSpeedEnemy.SelectedItem;
-            _settings.EnemyMinRadius = (int)minRadiusEnemy.SelectedItem;
-            _settings.EnemyMinSpeed = (int)minSpeedEnemy.SelectedItem;
-            _settings.HumanRadius = (int)playerRadius.SelectedItem;
-            _settings.HumanSpeed = (int)playerSpeed.SelectedItem;
-            _settings.HumanColor = playerColor.Color;
-            _settings.EnemyStartingCount = (int)enemyStartCount.SelectedItem;
-            _settings.RespawnRate = ((int)respawnRate.SelectedItem);
         }
     }
 }
