@@ -15,7 +15,7 @@ namespace Ui
 {
     public sealed partial class MainPage : Page
     {
-        private Engine _engine;
+        public Engine _engine;
         private DispatcherTimer _mainTimer;
         private DispatcherTimer _newEnemyTimer;
         private PlayerInput _playerInput = new PlayerInput();
@@ -34,14 +34,6 @@ namespace Ui
                 Interval = new TimeSpan(0,0,0,0,20)
             };
             _mainTimer.Tick += Timer_Tick;
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            if (e.Parameter is Settings newSet)
-            {
-                _settings = newSet;
-            }
         }
 
         private void Button_newGame_Click(object sender,RoutedEventArgs e)
@@ -74,7 +66,7 @@ namespace Ui
 
         private void Button_settings_Click(object sender,RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SettingsPage),_settings);
+            Frame.Navigate(typeof(SettingsPage));
         }
 
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender,Windows.UI.Core.KeyEventArgs args)
@@ -128,20 +120,19 @@ namespace Ui
         private Settings DefaultSettings()
         {
             double height = stackPanel.ActualHeight - commandBar.ActualHeight;
-            return new Settings
-            {
-                BoardHeight = height,
-                BoardWidth = canvas_game.ActualWidth,
-                EnemyStartingCount = 3,
-                EnemyMaxRadius = 40,
-                EnemyMinRadius = 2,
-                HumanRadius = 8,
-                HumanSpeed = 16,
-                HumanColor = Colors.Green,
-                EnemyMaxSpeed = 12,
-                EnemyMinSpeed = 6,
-                RespawnRate = 500
-            };
+            _settings = Settings.Init;
+            _settings.BoardHeight = height;
+            _settings.BoardWidth = canvas_game.ActualWidth;
+            _settings.EnemyStartingCount = 3;
+            _settings.EnemyMaxRadius = 40;
+            _settings.EnemyMinRadius = 2;
+            _settings.HumanRadius = 8;
+            _settings.HumanSpeed = 16;
+            _settings.HumanColor = Colors.Green;
+            _settings.EnemyMaxSpeed = 12;
+            _settings.EnemyMinSpeed = 6;
+            _settings.RespawnRate = 500;
+            return _settings;
         }
 
         private void DrawEntityOnCanvas(Entity e)
@@ -153,8 +144,15 @@ namespace Ui
 
         private void GameOver(GameState state)
         {
+            _settings.HighScore = Math.Max(_settings.HighScore,_engine.CurrentScore);
+            ShowScore();
             _newEnemyTimer.Stop();
             _mainTimer.Stop();
+        }
+
+        private void ShowScore()
+        {
+            commandBar.Content = string.Format("Score: {0} | High score: {1}",_engine.CurrentScore,_settings.HighScore);
         }
 
         private void MaximizeWindowOnLoad()
@@ -193,6 +191,8 @@ namespace Ui
             GameState state = _engine.GameCycle(_playerInput);
             _settings = _engine.Settings;
             ReDrawCanvas(_engine.Human,_engine.Enemies);
+            ShowScore();
+
             switch (state)
             {
                 case GameState.Lost:
