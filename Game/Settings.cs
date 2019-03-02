@@ -7,12 +7,28 @@ namespace Game
     [DataContract]
     public class Settings
     {
+        public static Settings Init
+        {
+            get
+            {
+                if (_init == null)
+                {
+                    _init = new Settings();
+                }
+                return _init;
+            }
+        }
+
+        private static Settings _init;
+
+        private Settings()
+        {
+        }
+
         public const int PLACEMENT_BUFFER = 4;
 
         public double BoardHeight { get; set; }
         public double BoardWidth { get; set; }
-
-        public int CurrentScore { get; set; }
 
         [DataMember]
         public double EnemyMaxRadius { get; set; }

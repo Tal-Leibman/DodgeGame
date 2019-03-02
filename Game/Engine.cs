@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Game
@@ -15,7 +16,7 @@ namespace Game
             State = GameState.On;
             Human = new Player(Settings);
             Human.PlaceOnBoard(GetXInRange(Human),GetYInRange(Human));
-
+            CurrentScore = 0;
             while (Enemies.Count < Settings.EnemyStartingCount)
             {
                 AddEnemy();
@@ -60,13 +61,9 @@ namespace Game
             HandleMovement(input);
             Human.IsAlive = IsPlayerAlive();
             List<Enemy> survivors = SurvivingEnemies();
-            Settings.CurrentScore += Enemies.Count - survivors.Count;
+            CurrentScore += Enemies.Count - survivors.Count;
             Enemies = survivors;
             State = CheckGameState();
-            if (State != GameState.On)
-            {
-                Settings.HighScore = Math.Max(Settings.HighScore,Settings.CurrentScore);
-            }
             return State;
         }
 

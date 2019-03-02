@@ -14,23 +14,12 @@
             <CommandBar IsDynamicOverflowEnabled="False"
                         OverflowButtonVisibility="Collapsed"
                         IsOpen="False">
-                <AppBarSeparator></AppBarSeparator>
-
-                <AppBarButton Name="button_clear"
-                              Click="Button_clear_Click"
-                              Content="Clear fields"></AppBarButton>
 
                 <AppBarSeparator></AppBarSeparator>
 
                 <AppBarButton Name="button_save"
                               Content="Save settings"
                               Click="Button_save_Click"></AppBarButton>
-
-                <AppBarSeparator></AppBarSeparator>
-
-                <AppBarButton Name="button_load"
-                              Content="Load settings"
-                              Click="Button_load_Click"></AppBarButton>
 
                 <AppBarSeparator></AppBarSeparator>
                 <AppBarButton Name="button_back"
@@ -82,8 +71,7 @@
                              IsColorSliderVisible="False"
                              IsAlphaSliderVisible="False"
                              IsColorChannelTextInputVisible="False"
-                             ColorSpectrumShape="Ring"
-                             ColorChanged="PlayerColor_ColorChanged" />
+                             ColorSpectrumShape="Ring" />
             </StackPanel>
         </StackPanel>
     </Grid>
