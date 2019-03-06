@@ -28,6 +28,8 @@ namespace Game
 
         private static void LoadDefault()
         {
+            _init.BoardHeight = 600;
+            _init.BoardWidth = 600;
             _init.EnemyStartingCount = 3;
             _init.EnemyMaxRadius = 40;
             _init.EnemyMinRadius = 2;

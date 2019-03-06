@@ -24,7 +24,7 @@ namespace Game
         }
 
         public int CurrentScore { get; set; }
-        public List<Enemy> Enemies { get; private set; }
+        public List<Enemy> Enemies { get; set; }
         public Player Human { get; private set; }
         public Settings Settings { get; set; }
         public GameState State { get; private set; }
