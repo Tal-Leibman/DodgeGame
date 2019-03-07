@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Game;
 using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.System;
-using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Ui
 {
@@ -34,6 +31,50 @@ namespace Ui
                 Interval = new TimeSpan(0,0,0,0,20)
             };
             _mainTimer.Tick += Timer_Tick;
+        }
+
+        private void Timer_Tick(object sender,object e)
+        {
+            GameState state = _engine.GameCycle(_playerInput);
+            ReDrawCanvas(_engine.Human,_engine.Enemies);
+            ShowScore();
+            switch (state)
+            {
+                case GameState.Lost:
+                    GameOver(GameState.Lost);
+                    break;
+
+                case GameState.Won:
+                    GameOver(GameState.Won);
+                    break;
+
+                default: break;
+            }
+        }
+
+        private void DrawEntityOnCanvas(Entity e)
+        {
+            canvas_game.Children.Add(e.Circle);
+            Canvas.SetLeft(e.Circle,e.X - e.Radius);
+            Canvas.SetTop(e.Circle,e.Y - e.Radius);
+        }
+
+        private void ReDrawCanvas(Player human,List<Enemy> survivors)
+        {
+            canvas_game.Children.Clear();
+            DrawEntityOnCanvas(human);
+            survivors.ForEach(e =>
+            {
+                DrawEntityOnCanvas(e);
+            });
+        }
+
+        private void GameOver(GameState state)
+        {
+            _settings.HighScore = Math.Max(_settings.HighScore,_engine.CurrentScore);
+            ShowScore();
+            _newEnemyTimer.Stop();
+            _mainTimer.Stop();
         }
 
         private void Button_newGame_Click(object sender,RoutedEventArgs e)
@@ -107,20 +148,6 @@ namespace Ui
             }
         }
 
-        private void DrawEntityOnCanvas(Entity e)
-        {
-            canvas_game.Children.Add(e.Circle);
-            Canvas.SetLeft(e.Circle,e.X - e.Radius);
-            Canvas.SetTop(e.Circle,e.Y - e.Radius);
-        }
-
-        private void GameOver(GameState state)
-        {
-            _settings.HighScore = Math.Max(_settings.HighScore,_engine.CurrentScore);
-            ShowScore();
-            _newEnemyTimer.Stop();
-            _mainTimer.Stop();
-        }
 
         private void ShowScore()
         {
@@ -148,33 +175,6 @@ namespace Ui
             DrawEntityOnCanvas(newEnemy);
         }
 
-        private void ReDrawCanvas(Player human,List<Enemy> survivors)
-        {
-            canvas_game.Children.Clear();
-            DrawEntityOnCanvas(human);
-            survivors.ForEach(e =>
-            {
-                DrawEntityOnCanvas(e);
-            });
-        }
 
-        private void Timer_Tick(object sender,object e)
-        {
-            GameState state = _engine.GameCycle(_playerInput);
-            ReDrawCanvas(_engine.Human,_engine.Enemies);
-            ShowScore();
-            switch (state)
-            {
-                case GameState.Lost:
-                    GameOver(GameState.Lost);
-                    break;
-
-                case GameState.Won:
-                    GameOver(GameState.Won);
-                    break;
-
-                default: break;
-            }
-        }
     }
 }

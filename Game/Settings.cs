@@ -7,6 +7,7 @@ namespace Game
     [DataContract]
     public class Settings
     {
+
         public static Settings Init
         {
             get
@@ -22,9 +23,7 @@ namespace Game
 
         private static Settings _init;
 
-        private Settings()
-        {
-        }
+        private Settings() { }
 
         private static void LoadDefault()
         {

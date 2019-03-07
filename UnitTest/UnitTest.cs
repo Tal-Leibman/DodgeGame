@@ -8,20 +8,22 @@ namespace UnitTest
     [TestClass]
     public class UnitTest1
     {
-        private Settings set = Settings.Init;
+        private Settings _set = Settings.Init;
 
         [UITestMethod]
         public void GameCycleWon()
         {
-            Engine engine = new Engine(set);
-            engine.Enemies = new System.Collections.Generic.List<Enemy>();
+            Engine engine = new Engine(_set)
+            {
+                Enemies = new System.Collections.Generic.List<Enemy>()
+            };
             Assert.AreEqual(GameState.Won,engine.GameCycle(new PlayerInput()));
         }
 
         [UITestMethod]
         public void GameCycleLost()
         {
-            Engine engine = new Engine(set);
+            Engine engine = new Engine(_set);
             engine.Enemies[0].PlaceOnBoard(0,0);
             double enemyAndPlayerRad = engine.Enemies[0].Radius + engine.Human.Radius;
             engine.Human.PlaceOnBoard(enemyAndPlayerRad,0);
@@ -31,7 +33,7 @@ namespace UnitTest
         [UITestMethod]
         public void GameCycleOn()
         {
-            Engine engine = new Engine(set);
+            Engine engine = new Engine(_set);
             Assert.AreEqual(GameState.On,engine.GameCycle(new PlayerInput()));
         }
     }

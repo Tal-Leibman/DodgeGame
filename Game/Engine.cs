@@ -7,7 +7,17 @@ namespace Game
 {
     public class Engine
     {
-        private static Random s_rnd = new Random();
+
+        public GameState GameCycle(PlayerInput input)
+        {
+            HandleMovement(input);
+            Human.IsAlive = IsPlayerAlive();
+            List<Enemy> survivors = SurvivingEnemies();
+            CurrentScore += Enemies.Count - survivors.Count;
+            Enemies = survivors;
+            State = CheckGameState();
+            return State;
+        }
 
         public Engine(Settings settings)
         {
@@ -56,17 +66,6 @@ namespace Game
             }
         }
 
-        public GameState GameCycle(PlayerInput input)
-        {
-            HandleMovement(input);
-            Human.IsAlive = IsPlayerAlive();
-            List<Enemy> survivors = SurvivingEnemies();
-            CurrentScore += Enemies.Count - survivors.Count;
-            Enemies = survivors;
-            State = CheckGameState();
-            return State;
-        }
-
         private GameState CheckGameState()
         {
             if (!Human.IsAlive)
@@ -92,13 +91,13 @@ namespace Game
         private int GetXInRange(Entity e)
         {
             int range = (int)(Settings.BoardWidth - e.Radius);
-            return s_rnd.Next((int)e.Radius,range);
+            return _rnd.Next((int)e.Radius,range);
         }
 
         private int GetYInRange(Entity e)
         {
             int range = (int)(Settings.BoardHeight - e.Radius);
-            return s_rnd.Next((int)e.Radius,range);
+            return _rnd.Next((int)e.Radius,range);
         }
 
         private void HandleMovement(PlayerInput input)
@@ -140,5 +139,6 @@ namespace Game
                 return survivors;
             }
         }
+        private static Random _rnd = new Random();
     }
 }
