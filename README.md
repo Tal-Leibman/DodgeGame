@@ -1,4 +1,4 @@
-![alt text](https://github.com/Tal-Leibman/DodgeGame/blob/DodgeGame2.0/game.gif)
+![alt text](DodgeGame/game.gif)
 # DodgeGame
 UWP game
 use the arrow keys to avoid the randomly spawned enemies
